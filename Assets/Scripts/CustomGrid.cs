@@ -8,6 +8,8 @@ public class CustomGrid : MonoBehaviour
 {
 
     public static CustomGrid instance;
+    
+    public bool onlyDisplayPathGizmos;
     public LayerMask unwalkableMask;
     Node[,] grid;
     
@@ -35,6 +37,11 @@ public class CustomGrid : MonoBehaviour
         CreateGrid();
     }
     
+    public int MaxSize {
+        get {
+            return gridSizeX * gridSizeY;
+        }
+    }
 
 #if UNITY_EDITOR
     private void OnValidate()
@@ -96,13 +103,24 @@ public class CustomGrid : MonoBehaviour
     void OnDrawGizmos() {
         Gizmos.DrawWireCube(transform.position,new Vector3(gridSize.x,1,gridSize.y));
 
-        if (grid != null) {
-            foreach (Node n in grid) {
-                Gizmos.color = (n.walkable)?Color.white:Color.red;
-                if (path != null)
-                    if (path.Contains(n))
-                        Gizmos.color = Color.black;
-                Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter-.1f));
+        if (onlyDisplayPathGizmos) {
+            if (path != null) {
+                foreach (Node n in path) {
+                    Gizmos.color = Color.black;
+                    Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter-.1f));
+                }
+            }
+        }
+        else {
+
+            if (grid != null) {
+                foreach (Node n in grid) {
+                    Gizmos.color = (n.walkable)?Color.white:Color.red;
+                    if (path != null)
+                        if (path.Contains(n))
+                            Gizmos.color = Color.black;
+                    Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter-.1f));
+                }
             }
         }
     }

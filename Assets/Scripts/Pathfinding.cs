@@ -7,47 +7,43 @@ public class Pathfinding : MonoBehaviour {
     public Transform seeker, target;
     
     void Update() {
-        FindPath (seeker.position, target.position);
+        FindPath(seeker.position,target.position);
     }
 
     void FindPath(Vector3 startPos, Vector3 targetPos) {
+
         Node startNode = CustomGrid.instance.NodeFromWorldPoint(startPos);
         Node targetNode = CustomGrid.instance.NodeFromWorldPoint(targetPos);
 
-        List<Node> openSet = new List<Node>();
+        Heap<Node> openSet = new Heap<Node>(CustomGrid.instance.MaxSize);
         HashSet<Node> closedSet = new HashSet<Node>();
         openSet.Add(startNode);
 
         while (openSet.Count > 0) {
-            Node node = openSet[0];
-            for (int i = 1; i < openSet.Count; i ++) {
-                if (openSet[i].fCost < node.fCost || openSet[i].fCost == node.fCost) {
-                    if (openSet[i].hCost < node.hCost)
-                        node = openSet[i];
-                }
-            }
+            Node currentNode = openSet.RemoveFirst();
+            closedSet.Add(currentNode);
 
-            openSet.Remove(node);
-            closedSet.Add(node);
-
-            if (node == targetNode) {
+            if (currentNode == targetNode) {
                 RetracePath(startNode,targetNode);
                 return;
             }
 
-            foreach (Node neighbour in CustomGrid.instance.GetNeighbours(node)) {
+            foreach (Node neighbour in CustomGrid.instance.GetNeighbours(currentNode)) {
                 if (!neighbour.walkable || closedSet.Contains(neighbour)) {
                     continue;
                 }
 
-                int newCostToNeighbour = node.gCost + GetDistance(node, neighbour);
-                if (newCostToNeighbour < neighbour.gCost || !openSet.Contains(neighbour)) {
-                    neighbour.gCost = newCostToNeighbour;
+                int newMovementCostToNeighbour = currentNode.gCost + GetDistance(currentNode, neighbour);
+                if (newMovementCostToNeighbour < neighbour.gCost || !openSet.Contains(neighbour)) {
+                    neighbour.gCost = newMovementCostToNeighbour;
                     neighbour.hCost = GetDistance(neighbour, targetNode);
-                    neighbour.parent = node;
+                    neighbour.parent = currentNode;
 
                     if (!openSet.Contains(neighbour))
                         openSet.Add(neighbour);
+                    else {
+                        //openSet.UpdateItem(neighbour);
+                    }
                 }
             }
         }
@@ -74,4 +70,6 @@ public class Pathfinding : MonoBehaviour {
             return 14*dstY + 10* (dstX-dstY);
         return 14*dstX + 10 * (dstY-dstX);
     }
+
+
 }
