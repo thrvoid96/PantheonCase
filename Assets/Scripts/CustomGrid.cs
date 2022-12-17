@@ -33,8 +33,9 @@ public class CustomGrid : MonoBehaviour {
     {
         if (gridWorldSize != gridSizeCheck)
         {
-            //transform.localScale = new Vector3(gridWorldSize.x, 0, gridWorldSize.y) * 0.1f;
-            GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_GridSize",(nodeRadius * 2f) / gridWorldSize.x);
+            transform.localScale = new Vector3(gridWorldSize.x, 0, gridWorldSize.y) * 0.1f;
+            GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_GridSizeX",(nodeRadius * 2f) / gridWorldSize.x);
+            GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_GridSizeY",(nodeRadius * 2f) / gridWorldSize.y);
         }
     }
 #endif

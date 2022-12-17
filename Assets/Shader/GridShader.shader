@@ -4,7 +4,8 @@ Shader "Unlit/GridShader"
     {
         _MainTex ("Texture", 2D) = "white" {}
         [HDR]_GridColour ("Grid Colour", Color) = (.255,.0,.0,1)
-        _GridSize ("Grid Size", Range(0.01, 1.0)) = 0.1
+        _GridSizeX ("Grid Size X", Range(0.01, 1.0)) = 0.1
+        _GridSizeY ("Grid Size Y", Range(0.01, 1.0)) = 0.1
         _GridLineThickness ("Grid Line Thickness", Range(0.00001, 0.010)) = 0.003
         _Alpha ("Grid Transparency", Range(0, 1)) = 0.5
         _Intensity ("Emission Intensity", Range(-5,5)) = 0
@@ -40,7 +41,8 @@ Shader "Unlit/GridShader"
             sampler2D _MainTex;
             float4 _MainTex_ST;
             float4 _GridColour;
-            float _GridSize;
+            float _GridSizeX;
+            float _GridSizeY;
             float _GridLineThickness;
             float _Alpha;
             float _Intensity;
@@ -57,10 +59,11 @@ Shader "Unlit/GridShader"
             float GridTest(float2 r) {
                 float result;
 
-                for (float i = 0.0; i <= 1; i += _GridSize) {
-                    for (int j = 0; j < 2; j++) {
-                        result += 1.0 - smoothstep(0.0, _GridLineThickness,abs(r[j] - i));
-                    }
+                for (float i = 0.0; i <= 1; i += _GridSizeX) {
+                    result += 1.0 - smoothstep(0.0, _GridLineThickness,abs(r[0] - i));
+                }
+                for (float i = 0.0; i <= 1; i += _GridSizeY) {
+                    result += 1.0 - smoothstep(0.0, _GridLineThickness,abs(r[1] - i));
                 }
 
                 return result;

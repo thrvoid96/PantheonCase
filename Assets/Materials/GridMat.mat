@@ -27,8 +27,8 @@ Material:
     - _Alpha: 0.5
     - _GridLineThickness: 0.003
     - _GridSize: 0.06666667
-    - _GridSizeX: 1
-    - _GridSizeY: 1
+    - _GridSizeX: 0.06666667
+    - _GridSizeY: 0.06666667
     - _Intensity: 0
     m_Colors:
     - _GridColour: {r: 1, g: 1, b: 1, a: 1}
