@@ -9,14 +9,12 @@ public Vector2 yourVector;
 
 public class VectorRangeAttribute : PropertyAttribute {
     public readonly float fMinX, fMaxX, fMinY, fMaxY;
-    public readonly bool bClamp;
-    public VectorRangeAttribute(float fMinX, float fMaxX, float fMinY, float fMaxY, bool bClamp)
+    public VectorRangeAttribute(float fMinX, float fMaxX, float fMinY, float fMaxY)
     {
         this.fMinX = fMinX;
         this.fMaxX = fMaxX;
         this.fMinY = fMinY;
         this.fMaxY = fMaxY;
-        this.bClamp = bClamp;
     }
 }
 
@@ -37,11 +35,8 @@ public class VectorRangeAttributeDrawer : PropertyDrawer
         Vector2 val = EditorGUI.Vector2Field(textFieldPosition, label, property.vector2Value);
         if (EditorGUI.EndChangeCheck())
         {
-            if (rangeAttribute.bClamp)
-            {
-                val.x = Mathf.Clamp(val.x, rangeAttribute.fMinX, rangeAttribute.fMaxX);
-                val.y = Mathf.Clamp(val.y, rangeAttribute.fMinY, rangeAttribute.fMaxY);
-            }
+            val.x = Mathf.Clamp(val.x, rangeAttribute.fMinX, rangeAttribute.fMaxX);
+            val.y = Mathf.Clamp(val.y, rangeAttribute.fMinY, rangeAttribute.fMaxY);
             property.vector2Value = val;
         }
         Rect helpPosition = position;
