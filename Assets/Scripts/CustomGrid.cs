@@ -1,10 +1,11 @@
+using System;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
 public class CustomGrid : MonoBehaviour
 {
-
+	public static CustomGrid instance;
 	public bool displayGridGizmos;
 	public LayerMask unwalkableMask;
 
@@ -30,6 +31,7 @@ public class CustomGrid : MonoBehaviour
 
 	void Awake()
 	{
+		instance = this;
 		nodeRadius = nodeDiameter * 0.5f;
 		gridSizeX = Mathf.RoundToInt(gridSize.x / nodeDiameter);
 		gridSizeY = Mathf.RoundToInt(gridSize.y / nodeDiameter);
@@ -96,7 +98,7 @@ public class CustomGrid : MonoBehaviour
 		return grid[x, y];
 	}
 
-	void OnDrawGizmos()
+	private void OnDrawGizmos()
 	{
 		Gizmos.DrawWireCube(transform.position, new Vector3(gridSize.x, 1, gridSize.y));
 		if (grid != null && displayGridGizmos)

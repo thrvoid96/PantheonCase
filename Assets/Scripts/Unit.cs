@@ -1,27 +1,55 @@
+using System;
 using UnityEngine;
 using System.Collections;
 
 public class Unit : MonoBehaviour {
     
-    public Transform target;
     public float speed = 20f;
     Vector3[] path;
     int targetIndex;
+    private bool successfullPathFound;
 
     void Start() {
-        PathRequestManager.RequestPath(transform.position,target.position, OnPathFound);
+        
     }
 
-    public void OnPathFound(Vector3[] newPath, bool pathSuccessful) {
-        if (pathSuccessful) {
-            path = newPath;
-            targetIndex = 0;
-            StopCoroutine("FollowPath");
-            StartCoroutine("FollowPath");
+    public void GoForPath(bool startFollow,Vector3 targetPos)
+    {
+        if (startFollow)
+        {
+            PathRequestManager.RequestPath(transform.position,targetPos, FollowPath);
+        }
+        else
+        {
+            PathRequestManager.RequestPath(transform.position,targetPos, OnPathFound);
         }
     }
 
-    IEnumerator FollowPath() {
+    public void FollowPath(Vector3[] newPath, bool pathSuccessful)
+    {
+        successfullPathFound = pathSuccessful;
+        if (pathSuccessful) {
+            path = newPath;
+            targetIndex = 0;
+            StopCoroutine(nameof(StartFollow));
+            StartCoroutine(nameof(StartFollow));
+        }
+        else
+        {
+            path = null;
+        }
+    }
+    
+    public void OnPathFound(Vector3[] newPath, bool pathSuccessful) {
+        successfullPathFound = pathSuccessful;
+        if (pathSuccessful) {
+            path = newPath;
+            targetIndex = 0;
+        }
+        
+    }
+
+    IEnumerator StartFollow() {
         Vector3 currentWaypoint = path[0];
         while (true) {
             if (transform.position == currentWaypoint) {
@@ -40,8 +68,15 @@ public class Unit : MonoBehaviour {
 
     public void OnDrawGizmos() {
         if (path != null) {
-            for (int i = targetIndex; i < path.Length; i ++) {
+            if (successfullPathFound)
+            {
                 Gizmos.color = Color.black;
+            }
+            else
+            {
+                Gizmos.color = Color.red;
+            }
+            for (int i = targetIndex; i < path.Length; i ++) {
                 Gizmos.DrawCube(path[i], Vector3.one);
 
                 if (i == targetIndex) {
@@ -52,5 +87,15 @@ public class Unit : MonoBehaviour {
                 }
             }
         }
+    }
+
+    private void OnMouseDown()
+    {
+        PlayerController.instance.SelectNewSoldier(this);
+    }
+
+    public void ChangeColor(Color color)
+    {
+        GetComponent<MeshRenderer>().material.color = color;
     }
 }

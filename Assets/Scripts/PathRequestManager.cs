@@ -23,7 +23,7 @@ public class PathRequestManager : MonoBehaviour {
         instance.pathRequestQueue.Enqueue(newRequest);
         instance.TryProcessNext();
     }
-
+    
     void TryProcessNext() {
         if (!isProcessingPath && pathRequestQueue.Count > 0) {
             currentPathRequest = pathRequestQueue.Dequeue();
@@ -48,6 +48,5 @@ public class PathRequestManager : MonoBehaviour {
             pathEnd = _end;
             callback = _callback;
         }
-
     }
 }
