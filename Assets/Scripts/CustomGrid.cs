@@ -8,11 +8,9 @@ public class CustomGrid : MonoBehaviour
 	public static CustomGrid instance;
 	public bool displayGridGizmos;
 	public LayerMask unwalkableMask;
-
-
+	
 	[VectorRange(1f, 100f, 1f, 100f)] public Vector2 gridSize;
-
-
+	
 	public float nodeDiameter;
 
 	Node[,] grid;
@@ -59,6 +57,21 @@ public class CustomGrid : MonoBehaviour
 				grid[x, y] = new Node(walkable, worldPoint, x, y);
 			}
 		}
+	}
+
+	public void SetWalkable(Node node, bool value)
+	{
+		node.walkable = value;
+	}
+
+	public Node[,] GetAllNodes()
+	{
+		return grid;
+	}
+	
+	public Node GetNode(int gridX, int gridY)
+	{
+		return grid[gridX,gridY];
 	}
 
 	public List<Node> GetNeighbours(Node node)

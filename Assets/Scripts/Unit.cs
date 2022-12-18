@@ -46,6 +46,13 @@ public class Unit : MonoBehaviour {
             path = newPath;
             targetIndex = 0;
         }
+        else
+        {
+            path = new[]
+            {
+                transform.position
+            };
+        }
         
     }
 
