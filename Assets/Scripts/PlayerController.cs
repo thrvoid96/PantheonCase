@@ -7,32 +7,74 @@ public class PlayerController : MonoBehaviour
 {
     public static PlayerController instance;
 
-    private Coroutine _coroutine;
-    private Unit selectedSoldier;
+    private Coroutine _coroutine1,_coroutine2;
+    private Unit selectedUnit;
+    private Building selectedBuilding;
 
     private void Awake()
     {
         instance = this;
     }
 
-    public void SelectNewSoldier(Unit soldier)
+    
+
+    public void SelectNewUnit(Unit unit)
     {
-        if (selectedSoldier != null)
+        if (selectedUnit != null)
         {
-            selectedSoldier.ChangeColor(Color.white);
+            selectedUnit.ChangeColor(Color.magenta);
         }
         
-        selectedSoldier = soldier;
-        selectedSoldier.ChangeColor(Color.green);
+        selectedUnit = unit;
+        selectedUnit.ChangeColor(Color.green);
 
-        if (_coroutine != null)
+        if (_coroutine1 != null)
         {
-            StopCoroutine(nameof(WaitForPlayerInput));
+            StopCoroutine(nameof(WaitForMoveInput));
         }
-        _coroutine = StartCoroutine(nameof(WaitForPlayerInput));
+        _coroutine1 = StartCoroutine(nameof(WaitForMoveInput));
     }
+    
+    public void SelectNewBuilding(Building building)
+    {
+        selectedBuilding = building;
+        
+        if (_coroutine2 != null)
+        {
+            StopCoroutine(nameof(WaitForPlaceInput));
+        }
+        _coroutine2 = StartCoroutine(nameof(WaitForPlaceInput));
+    }
+    
 
-    IEnumerator WaitForPlayerInput()
+    IEnumerator WaitForPlaceInput()
+    {
+        while (true)
+        {
+            Ray ray = CameraMain.instance.mainCam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast (ray, out hit, Mathf.Infinity,LayerMask.GetMask("Grid")))
+            {
+                var hoveringGrid = CustomGrid.instance.NodeFromWorldPoint(hit.point);
+                selectedBuilding.transform.position = hoveringGrid.worldPosition;
+                if (Input.GetMouseButtonDown(1) && hoveringGrid.walkable)
+                {
+                    hoveringGrid.walkable = false;
+                    selectedBuilding = null;
+                    yield break;
+                }
+            }
+            else
+            {
+                
+                selectedBuilding.transform.position = CameraMain.instance.mainCam.ScreenToWorldPoint(Input.mousePosition) + (Vector3.forward*10f);
+            }
+             
+            yield return null;
+        }
+    }
+    
+    IEnumerator WaitForMoveInput()
     {
         while (true)
         {
@@ -42,14 +84,14 @@ public class PlayerController : MonoBehaviour
             {
                 if (Input.GetMouseButtonDown(1))
                 {
-                    selectedSoldier.GoForPath(true,hit.point);
-                    selectedSoldier.ChangeColor(Color.white);
-                    selectedSoldier = null;
+                    selectedUnit.GoForPath(true,hit.point);
+                    selectedUnit.ChangeColor(Color.magenta);
+                    selectedUnit = null;
                     yield break;
                 }
                 else
                 {
-                    selectedSoldier.GoForPath(false,hit.point); 
+                    selectedUnit.GoForPath(false,hit.point); 
                     yield return null;
                 }
             }   
