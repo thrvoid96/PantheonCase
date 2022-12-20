@@ -51,23 +51,26 @@ public class PlayerController : MonoBehaviour
     {
         while (true)
         {
-            Ray ray = CameraMain.instance.mainCam.ScreenPointToRay(Input.mousePosition);
+            Ray ray = CameraMain.Instance.mainCam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast (ray, out hit, Mathf.Infinity,LayerMask.GetMask("Grid")))
             {
-                var hoveringGrid = CustomGrid.instance.NodeFromWorldPoint(hit.point);
+                var hoveringGrid = CustomGrid.Instance.NodeFromWorldPoint(hit.point);
                 selectedBuilding.transform.position = hoveringGrid.worldPosition;
-                if (Input.GetMouseButtonDown(1) && hoveringGrid.walkable)
+                if (Input.GetMouseButtonDown(1))
                 {
-                    hoveringGrid.walkable = false;
-                    selectedBuilding = null;
-                    yield break;
+                    var placementComplete = selectedBuilding.TryPlaceBuilding();
+                    if (placementComplete)
+                    {
+                        selectedBuilding = null;
+                        yield break;
+                    }
                 }
             }
             else
             {
                 
-                selectedBuilding.transform.position = CameraMain.instance.mainCam.ScreenToWorldPoint(Input.mousePosition) + (Vector3.forward*10f);
+                selectedBuilding.transform.position = CameraMain.Instance.mainCam.ScreenToWorldPoint(Input.mousePosition) + (Vector3.forward * 10f);
             }
              
             yield return null;
@@ -78,7 +81,7 @@ public class PlayerController : MonoBehaviour
     {
         while (true)
         {
-            Ray ray = CameraMain.instance.mainCam.ScreenPointToRay(Input.mousePosition);
+            Ray ray = CameraMain.Instance.mainCam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast (ray, out hit, Mathf.Infinity,LayerMask.GetMask("Grid"))) 
             {

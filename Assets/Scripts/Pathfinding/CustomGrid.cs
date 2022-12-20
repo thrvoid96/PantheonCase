@@ -2,16 +2,16 @@ using System;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SocialPlatforms;
 
-public class CustomGrid : MonoBehaviour
+public class CustomGrid : Singleton<CustomGrid>
 {
-	public static CustomGrid instance;
 	public bool displayGridGizmos;
-	public LayerMask unwalkableMask;
+
+	[VectorRange(1f, 100f, 1f, 100f)] public Vector2 gridSize = Vector2.one;
 	
-	[VectorRange(1f, 100f, 1f, 100f)] public Vector2 gridSize;
-	
-	public float nodeDiameter;
+	[Range(1f,100f)]
+	public float nodeDiameter = 1f;
 
 	Node[,] grid;
 
@@ -22,17 +22,16 @@ public class CustomGrid : MonoBehaviour
 	private void OnValidate()
 	{
 		transform.localScale = new Vector3(gridSize.x, 0, gridSize.y) * 0.1f * nodeDiameter;
-		GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_GridSizeX",nodeDiameter / gridSize.x);
-		GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_GridSizeY",nodeDiameter / gridSize.y);
+		GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_GridSizeX",1f / gridSize.x);
+		GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_GridSizeY",1f / gridSize.y);
 	}
 #endif
 
 	void Awake()
 	{
-		instance = this;
 		nodeRadius = nodeDiameter * 0.5f;
-		gridSizeX = Mathf.RoundToInt(gridSize.x / nodeDiameter);
-		gridSizeY = Mathf.RoundToInt(gridSize.y / nodeDiameter);
+		gridSizeX = Mathf.RoundToInt(gridSize.x);
+		gridSizeY = Mathf.RoundToInt(gridSize.y);
 		CreateGrid();
 	}
 
@@ -45,8 +44,8 @@ public class CustomGrid : MonoBehaviour
 	{
 		grid = new Node[gridSizeX, gridSizeY];
 		Vector3 worldBottomLeft =
-			transform.position - Vector3.right * gridSize.x / 2 - Vector3.up * gridSize.y / 2;
-
+			transform.position - (Vector3.right * gridSizeX * nodeRadius) - (Vector3.up * gridSizeY * nodeRadius) ;
+		
 		for (int x = 0; x < gridSizeX; x++)
 		{
 			for (int y = 0; y < gridSizeY; y++)
@@ -102,6 +101,7 @@ public class CustomGrid : MonoBehaviour
 	{
 		float percentX = (worldPosition.x + gridSize.x / 2) / gridSize.x;
 		float percentY = (worldPosition.y + gridSize.y / 2) / gridSize.y;
+		
 		percentX = Mathf.Clamp01(percentX);
 		percentY = Mathf.Clamp01(percentY);
 
@@ -112,7 +112,7 @@ public class CustomGrid : MonoBehaviour
 
 	private void OnDrawGizmos()
 	{
-		Gizmos.DrawWireCube(transform.position, new Vector3(gridSize.x, gridSize.y, 0.5f));
+		Gizmos.DrawWireCube(transform.position, new Vector3(gridSize.x * transform.localScale.x, gridSize.y * transform.localScale.y, 0.5f));
 		if (grid != null && displayGridGizmos)
 		{
 			foreach (Node n in grid)

@@ -7,6 +7,6 @@ public class Blockade : MonoBehaviour
 {
     private void Start()
     {
-        CustomGrid.instance.SetWalkable(CustomGrid.instance.NodeFromWorldPoint(transform.position),false);
+        CustomGrid.Instance.SetWalkable(CustomGrid.Instance.NodeFromWorldPoint(transform.position),false);
     }
 }
