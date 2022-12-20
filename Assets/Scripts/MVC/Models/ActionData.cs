@@ -3,6 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Action data model.
 /// </summary>
+[CreateAssetMenu(fileName = "ActionData", menuName = "Datas/ActionData", order = 0)]
 public class ActionData : ScriptableObject
 {
     //Action type
@@ -15,16 +16,16 @@ public class ActionData : ScriptableObject
     public string description = "This is a placeholder.";
     
     // Action image
-    public Sprite image;
+    public Sprite sprite;
     
     // Action cooldown
     public float cooldown = 0.1f;
     
-    public ActionData(string name, string description, Sprite image, float cooldown)
+    public ActionData(string name, string description, Sprite sprite, float cooldown)
     {
         this.name = name;
         this.description = description;
-        this.image = image;
+        this.sprite = sprite;
         this.cooldown = cooldown;
     }
 }

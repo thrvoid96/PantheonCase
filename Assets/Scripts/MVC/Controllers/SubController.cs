@@ -1,3 +1,5 @@
+using MVC.Controllers;
+using MVC.Views;
 using UnityEngine;
 
 /// <summary>
@@ -28,23 +30,23 @@ public abstract class SubController : MonoBehaviour
 /// <summary>
 /// Extending SubController class with generic reference UI Root.
 /// </summary>
-public abstract class SubController<T> : SubController where T : UIRoot
+public abstract class SubController<T> : SubController where T : BaseUIView
 {
     [SerializeField]
-    protected T ui;
-    public T UI => ui;
+    protected T view;
+    public T View => view;
 
     public override void EngageController()
     {
         base.EngageController();
 
-        ui.ShowRoot();
+        view.ShowView();
     }
 
     public override void DisengageController()
     {
         base.DisengageController();
 
-        ui.HideRoot();
+        view.ShowView();
     }
 }

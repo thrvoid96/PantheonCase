@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using MVC.Controllers;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -15,9 +16,7 @@ public class PlayerController : MonoBehaviour
     {
         instance = this;
     }
-
     
-
     public void SelectNewUnit(Unit unit)
     {
         if (selectedUnit != null)
@@ -27,6 +26,8 @@ public class PlayerController : MonoBehaviour
         
         selectedUnit = unit;
         selectedUnit.ChangeColor(Color.green);
+        RootController.Instance.SetupInfoPanel(selectedUnit.getInteractableData);
+        RootController.Instance.SetupActionsPanel(selectedUnit.getActionsData);
 
         if (_coroutine1 != null)
         {

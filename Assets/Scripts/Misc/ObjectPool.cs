@@ -41,7 +41,7 @@ public class ObjectPool : PersistentLazySingleton<ObjectPool>
         }
     }
 
-    public GameObject SpawnFromPool(string tag_, Vector3 position, Quaternion rotation)
+    public GameObject SpawnFromPool(string tag_, Vector3 position, Quaternion rotation, Transform parent)
     {
         if (!poolDictionary.ContainsKey(tag_))
         {
@@ -64,6 +64,7 @@ public class ObjectPool : PersistentLazySingleton<ObjectPool>
 
         objToSpawn.transform.position = position;
         objToSpawn.transform.rotation = rotation;
+        objToSpawn.transform.SetParent(parent);
 
         var pooledObj = objToSpawn.GetComponent<IPooledObject>();
 

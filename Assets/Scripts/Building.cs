@@ -3,14 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Building : Interactable
+public abstract class Building : Interactable
 {
     [SerializeField] protected List<GameObject> buildingParts;
     
     /// <summary>
     /// Returns true if the placement was successfull.
     /// </summary>
-    public bool TryPlaceBuilding()
+    public virtual bool TryPlaceBuilding()
     {
         List<Node> tempList = new List<Node>();
         var returnValue = false;

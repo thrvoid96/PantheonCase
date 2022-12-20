@@ -1,10 +1,17 @@
 using System;
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-public class Unit : Interactable {
-    
-    public float speed = 5f;
+public class Unit : Interactable
+{
+    [SerializeField] private InteractableData interactableData;
+    [SerializeField] private List<ActionData> possibleActions;
+
+    public InteractableData getInteractableData => interactableData;
+    public List<ActionData> getActionsData => possibleActions;
+
+    [SerializeField] private float speed = 5f;
     Vector3[] path;
     int targetIndex;
     private bool successfullPathFound;
