@@ -4,117 +4,33 @@ using System.Collections.Generic;
 using MVC.Controllers;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Singleton<PlayerController>
 {
-    public static PlayerController instance;
-
-    private Coroutine _coroutine1,_coroutine2;
-    private Unit selectedUnit;
-    private Building selectedBuilding;
-
-    private void Awake()
-    {
-        instance = this;
-    }
+    private Coroutine _coroutine;
+    public Interactable selectedInteractable { get; private set; }
     
-    public void SelectNewUnit(Unit unit)
+    public void SelectNewInteractable(Interactable interactable)
     {
-        if (selectedUnit != null)
+        selectedInteractable = interactable;
+        selectedInteractable.ChangeSprite(Color.green);
+        RootController.Instance.SetupInfoPanel(selectedInteractable.getInteractableData);
+        RootController.Instance.SetupActionsPanel(selectedInteractable.getActionsData);
+    }
+
+    public void UnselectInteractable()
+    {
+        selectedInteractable = null;
+    }
+
+    private void Update()
+    {
+        if (selectedInteractable!=null)
         {
-            selectedUnit.ChangeColor(Color.magenta);
+            if (Input.GetMouseButtonDown(0))
+            {
+            
+            }
         }
         
-        selectedUnit = unit;
-        selectedUnit.ChangeColor(Color.green);
-        RootController.Instance.SetupInfoPanel(selectedUnit.getInteractableData);
-        RootController.Instance.SetupActionsPanel(selectedUnit.getActionsData);
-
-        if (_coroutine1 != null)
-        {
-            StopCoroutine(nameof(WaitForMoveInput));
-        }
-        _coroutine1 = StartCoroutine(nameof(WaitForMoveInput));
     }
-    
-    public void SelectNewBuilding(Building building)
-    {
-        selectedBuilding = building;
-        
-        if (_coroutine2 != null)
-        {
-            StopCoroutine(nameof(WaitForPlaceInput));
-        }
-        _coroutine2 = StartCoroutine(nameof(WaitForPlaceInput));
-    }
-    
-
-    IEnumerator WaitForPlaceInput()
-    {
-        while (true)
-        {
-            Ray ray = CameraMain.Instance.mainCam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast (ray, out hit, Mathf.Infinity,LayerMask.GetMask("Grid")))
-            {
-                var hoveringGrid = CustomGrid.Instance.NodeFromWorldPoint(hit.point);
-                selectedBuilding.transform.position = hoveringGrid.worldPosition;
-                if (Input.GetMouseButtonDown(1))
-                {
-                    var placementComplete = selectedBuilding.TryPlaceBuilding();
-                    if (placementComplete)
-                    {
-                        selectedBuilding = null;
-                        yield break;
-                    }
-                }
-            }
-            else
-            {
-                
-                selectedBuilding.transform.position = CameraMain.Instance.mainCam.ScreenToWorldPoint(Input.mousePosition) + (Vector3.forward * 10f);
-            }
-             
-            yield return null;
-        }
-    }
-    
-    IEnumerator WaitForMoveInput()
-    {
-        while (true)
-        {
-            Ray ray = CameraMain.Instance.mainCam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast (ray, out hit, Mathf.Infinity,LayerMask.GetMask("Grid"))) 
-            {
-                if (Input.GetMouseButtonDown(1))
-                {
-                    selectedUnit.GoForPath(true,hit.point);
-                    selectedUnit.ChangeColor(Color.magenta);
-                    selectedUnit = null;
-                    yield break;
-                }
-                else
-                {
-                    selectedUnit.GoForPath(false,hit.point); 
-                    yield return null;
-                }
-            }   
-             
-            yield return null;
-        }
-    }
-    
-    // public void OnDrawGizmos() {
-    //     
-    //     if (selectedSoldier!=null)
-    //     {
-    //         Gizmos.color = Color.black;
-    //         Ray ray = CameraMain.instance.mainCam.ScreenPointToRay (Input.mousePosition);
-    //         RaycastHit hit;
-    //         if (Physics.Raycast (ray, out hit, Mathf.Infinity)) 
-    //         {
-    //             Gizmos.DrawCube(CustomGrid.instance.NodeFromWorldPoint(hit.point).worldPosition, Vector3.one);
-    //         }   
-    //     }
-    // }
 }

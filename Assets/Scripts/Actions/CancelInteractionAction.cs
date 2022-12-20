@@ -1,8 +1,6 @@
-using UnityEngine;
-
 namespace Actions
 {
-    public class ActionTemplate : BaseAction
+    public class CancelInteractionAction : BaseAction
     {
         public override void StartAction()
         {

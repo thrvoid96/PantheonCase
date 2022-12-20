@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Actions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -18,23 +19,27 @@ namespace MVC.Views
         // Reference to description label.
         [SerializeField]
         private TextMeshProUGUI descriptionLabel;
-
+        
         [SerializeField] private ActionData cancelActionData;
+
+        [Header("These prefabs must be in the same order as ActionType")]
+        [SerializeField] private List<GameObject> actionPrefabs;
+        
         private BaseAction cancelAction;
 
         private List<BaseAction> availableActions = new List<BaseAction>();
         private List<BaseAction> currentActions = new List<BaseAction>();
 
-        // Event called when Finish Button is clicked.
-        public UnityAction OnActionClicked;
-
-        /// <summary>
-        /// Method called by Finish Button.
-        /// </summary>
-        public void ActionClick()
-        {
-            OnActionClicked?.Invoke();
-        }
+        // // Event called when Finish Button is clicked.
+        // public UnityAction OnActionClicked;
+        //
+        // /// <summary>
+        // /// Method called by Finish Button.
+        // /// </summary>
+        // public void ActionClick()
+        // {
+        //     OnActionClicked?.Invoke();
+        // }
 
         public void ShowActions(List<ActionData> actionDatas)
         {
@@ -55,7 +60,7 @@ namespace MVC.Views
             }
             
             AddCancelAction();
-            LayoutRebuilder.ForceRebuildLayoutImmediate(scrollRect.content);
+            //LayoutRebuilder.ForceRebuildLayoutImmediate(scrollRect.content);
             ChangeAllActionsVisibility(false);
         }
         
@@ -91,7 +96,7 @@ namespace MVC.Views
             cancelAction.gameObject.SetActive(true);
             currentActions.Add(cancelAction);
             
-            LayoutRebuilder.ForceRebuildLayoutImmediate(scrollRect.content);
+            //LayoutRebuilder.ForceRebuildLayoutImmediate(scrollRect.content);
         }
 
         public void SelectAction(ActionData actionData)

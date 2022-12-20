@@ -197,7 +197,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7593717803960426174, guid: e240310ddceba3745bd8601e1b521071, type: 3}
       propertyPath: m_Name
-      value: BarracksBut
+      value: BarracksButton
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e240310ddceba3745bd8601e1b521071, type: 3}
@@ -299,7 +299,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 339611948781517999, guid: 9ce991f3f1c79914da5356833096649d, type: 3}
       propertyPath: m_Name
-      value: PowerPlantBut
+      value: PowerPlantButton
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ce991f3f1c79914da5356833096649d, type: 3}

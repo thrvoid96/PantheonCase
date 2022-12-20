@@ -7,11 +7,11 @@ public class Barracks : Building
 {
     public Node soldierSpawnNode { get; private set; }
 
-    public override bool TryPlaceBuilding()
+    public override bool TryPlacement()
     {
         SetupSoldierSpawnPoint();
         
-        return base.TryPlaceBuilding();
+        return base.TryPlacement();
     }
 
     private void SetupSoldierSpawnPoint()

@@ -5,19 +5,14 @@ using System.Collections.Generic;
 
 public class Unit : Interactable
 {
-    [SerializeField] private InteractableData interactableData;
-    [SerializeField] private List<ActionData> possibleActions;
-
-    public InteractableData getInteractableData => interactableData;
-    public List<ActionData> getActionsData => possibleActions;
-
     [SerializeField] private float speed = 5f;
     Vector3[] path;
     int targetIndex;
     private bool successfullPathFound;
-    
-    public void GoForPath(bool startFollow,Vector3 targetPos)
+
+    public override void DoPathfinding(bool startFollow,Vector3 targetPos)
     {
+        base.DoPathfinding(startFollow,targetPos);
         if (startFollow)
         {
             PathRequestManager.RequestPath(transform.position,targetPos, FollowPath);
@@ -26,8 +21,9 @@ public class Unit : Interactable
         {
             PathRequestManager.RequestPath(transform.position,targetPos, OnPathFound);
         }
+        
     }
-
+    
     public void FollowPath(Vector3[] newPath, bool pathSuccessful)
     {
         successfullPathFound = pathSuccessful;
@@ -99,13 +95,9 @@ public class Unit : Interactable
         }
     }
 
-    private void OnMouseDown()
+    public override void OnMouseDown()
     {
-        PlayerController.instance.SelectNewUnit(this);
+        base.OnMouseDown();
     }
-
-    public void ChangeColor(Color color)
-    {
-        GetComponent<MeshRenderer>().material.color = color;
-    }
+    
 }

@@ -32,7 +32,7 @@ namespace MVC.Views
         /// /// <param name="actionData">action data.</param>
         public void ShowInformation(InteractableData interactableData)
         {
-            nameLabel.text = interactableData.name;
+            nameLabel.text = interactableData.objName;
             descriptionLabel.text = interactableData.description;
             imageLabel.sprite = interactableData.sprite;
         }

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7593717803960426172}
   - component: {fileID: 3711381558933643909}
   m_Layer: 5
-  m_Name: BarracksBut
+  m_Name: BarracksButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -10,8 +10,10 @@ public abstract class Building : Interactable
     /// <summary>
     /// Returns true if the placement was successfull.
     /// </summary>
-    public virtual bool TryPlaceBuilding()
+    public override bool TryPlacement()
     {
+        base.TryPlacement();
+        
         List<Node> tempList = new List<Node>();
         var returnValue = false;
         foreach (var part in buildingParts)

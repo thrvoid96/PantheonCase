@@ -8,7 +8,7 @@ using UnityEngine;
 public class InteractableData : ScriptableObject
 {
     // Interactable name
-    public string name = "This is a placeholder.";
+    public string objName = "This is a placeholder.";
     
     // Interactable description
     public string description = "This is a placeholder.";
@@ -16,9 +16,15 @@ public class InteractableData : ScriptableObject
     // Interactable image
     public Sprite sprite;
     
-    public InteractableData(string name, string description, Sprite sprite)
+    /// <summary>
+    /// Constructor.
+    /// <param name="objName">Name of the object.</param>
+    /// <param name="description">Description of the object.</param>
+    /// <param name="sprite">Sprite of the object.</param>
+    /// </summary>
+    public InteractableData(string objName, string description, Sprite sprite)
     {
-        this.name = name;
+        this.objName = objName;
         this.description = description;
         this.sprite = sprite;
     }

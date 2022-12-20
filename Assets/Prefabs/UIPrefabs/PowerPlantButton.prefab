@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 339611948781517997}
   - component: {fileID: 6314208272074561278}
   m_Layer: 5
-  m_Name: PowerPlantBut
+  m_Name: PowerPlantButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
