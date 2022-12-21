@@ -65,6 +65,7 @@ namespace MVC.Views
         private void AddCancelAction()
         {
             cancelAction = ObjectPool.Instance.SpawnFromPool((ActionType.Cancel).ToString(), Vector3.zero, Quaternion.identity, scrollRect.content).GetComponent<BaseAction>();
+            cancelAction.buttonClickedEvent.AddListener(delegate{ChangeSelectedAction(cancelAction.GetActionType());});
             cancelAction.SetupView(cancelActionData);
             //Nedense spawn ederken scaleleri bozuluyor
             cancelAction.transform.localScale = Vector3.one;
@@ -81,12 +82,18 @@ namespace MVC.Views
         
         private void MakeActionsVisible(List<ActionData> actionDatas)
         {
+            for (int i = 0; i < currentActions.Count - 1; i++)
+            {
+                currentActions[i].buttonClickedEvent.RemoveAllListeners();
+            }
+            
             currentActions.Clear();
 
             for (int i = 0; i < actionDatas.Count; i++)
             {
                 var actionToUse = availableActions.Find(m => m.GetActionType() == actionDatas[i].actionType);
                 actionToUse.SetupView(actionDatas[i]);
+                actionToUse.GetButton().onClick.AddListener(delegate{ChangeSelectedAction(actionToUse.GetActionType());});
                 actionToUse.gameObject.SetActive(true);
                 currentActions.Add(actionToUse);
             }
@@ -94,23 +101,24 @@ namespace MVC.Views
             cancelAction.gameObject.SetActive(true);
             currentActions.Add(cancelAction);
 
-            SelectAction(actionDatas[0]);
+            ChangeSelectedAction(actionDatas[0].actionType);
             
             //LayoutRebuilder.ForceRebuildLayoutImmediate(scrollRect.content);
         }
 
-        public void SelectAction(ActionData actionData)
+        private void ChangeSelectedAction(ActionType actionType)
         {
             if (selectedAction != null)
             {
                 selectedAction.CancelAction();
                 ChangeActionColor(Color.white);
             }
-            var actionToUse = availableActions.Find(m => m.GetActionType() == actionData.actionType);
+            
+            var actionToUse = availableActions.Find(m => m.GetActionType() == actionType);
             selectedAction = actionToUse;
             selectedAction.StartAction();
             ChangeActionColor(Color.yellow);
-            descriptionLabel.text = actionData.description;
+            descriptionLabel.text = actionToUse.currentReferenceData.description;
         }
         
 

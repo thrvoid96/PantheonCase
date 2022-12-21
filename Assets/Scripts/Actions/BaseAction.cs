@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace Actions
@@ -21,7 +22,8 @@ namespace Actions
         // Reference to the button.
         [SerializeField]
         private Button actionButton;
-        
+
+        public UnityEvent buttonClickedEvent;
         public ActionData currentReferenceData { get; private set; }
     
         public void SetupView(ActionData currentReferenceData)
@@ -44,6 +46,14 @@ namespace Actions
         public Button GetButton()
         {
             return actionButton;
+        }
+        
+        /// <summary>
+        /// Actions on click event handle.
+        /// </summary>
+        public void CustomButtonClickEvent()
+        {
+            buttonClickedEvent?.Invoke();
         }
 
         public virtual void StartAction()
