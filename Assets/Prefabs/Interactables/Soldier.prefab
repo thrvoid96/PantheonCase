@@ -111,4 +111,5 @@ MonoBehaviour:
   interactableData: {fileID: 11400000, guid: 3c9b4ff397b8ee7498c2ccfb2e97752f, type: 2}
   possibleActions:
   - {fileID: 11400000, guid: 6c2b2f5d16f53e944a961bf501fa5dc8, type: 2}
+  hitCollider: {fileID: 5459282213383679525}
   speed: 5

@@ -12,7 +12,7 @@ public class ActionsController : SubController<ActionsView>
     // Reference to current actions data.
     private List<ActionData> actionDatas;
     
-    private void Start()
+    private void Awake()
     {
         InitialSetup();
     }
@@ -41,14 +41,14 @@ public class ActionsController : SubController<ActionsView>
     /// </summary>
     public void SetupActionsView(List<ActionData> actionDatas)
     {
-        this.actionDatas = new List<ActionData>(actionDatas);
+        this.actionDatas = actionDatas;
         view.ShowActions(actionDatas);
-        ChangeSelectedAction(actionDatas[0]);
+    }
+
+    public void TriggerCurrentAction()
+    {
+        view.TriggerCurrentAction();
     }
     
-    public void ChangeSelectedAction(ActionData actionData)
-    {
-        
-    }
 
 }

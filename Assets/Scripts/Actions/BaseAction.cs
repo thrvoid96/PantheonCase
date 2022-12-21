@@ -17,7 +17,11 @@ namespace Actions
         // Reference to image label.
         [SerializeField]
         private Image imageLabel;
-
+        
+        // Reference to the button.
+        [SerializeField]
+        private Button actionButton;
+        
         public ActionData currentReferenceData { get; private set; }
     
         public void SetupView(ActionData currentReferenceData)
@@ -35,6 +39,11 @@ namespace Actions
         public ActionType GetActionType()
         {
             return actionType;
+        }
+
+        public Button GetButton()
+        {
+            return actionButton;
         }
 
         public virtual void StartAction()

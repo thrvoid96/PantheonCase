@@ -213,6 +213,7 @@ MonoBehaviour:
   actionType: 0
   nameLabel: {fileID: 2365116789164214408}
   imageLabel: {fileID: 741416954069026756}
+  actionButton: {fileID: 8839097077532355143}
 --- !u!1 &7821414267891444217
 GameObject:
   m_ObjectHideFlags: 0

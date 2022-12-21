@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using MVC.Controllers;
 using UnityEngine;
 
@@ -13,24 +11,35 @@ public class PlayerController : Singleton<PlayerController>
     {
         selectedInteractable = interactable;
         selectedInteractable.ChangeSprite(Color.green);
+        RootController.Instance.EngageController(RootController.ControllerTypeEnum.Information);
         RootController.Instance.SetupInfoPanel(selectedInteractable.getInteractableData);
         RootController.Instance.SetupActionsPanel(selectedInteractable.getActionsData);
+
+        if (_coroutine != null)
+        {
+            StopCoroutine(nameof(WaitForUserInput));
+        }
+       
+        _coroutine = StartCoroutine(nameof(WaitForUserInput));
     }
 
     public void UnselectInteractable()
     {
+        StopCoroutine(nameof(WaitForUserInput));
+        RootController.Instance.DisengageController(RootController.ControllerTypeEnum.Information);
         selectedInteractable = null;
     }
 
-    private void Update()
+    IEnumerator WaitForUserInput()
     {
-        if (selectedInteractable!=null)
+        while (true)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(1))
             {
-            
+                RootController.Instance.TriggerCurrentAction();
             }
+
+            yield return null;
         }
-        
     }
 }

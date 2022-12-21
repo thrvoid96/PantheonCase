@@ -9,19 +9,26 @@ public class Unit : Interactable
     Vector3[] path;
     int targetIndex;
     private bool successfullPathFound;
+    private bool destinationReached;
 
     public override void DoPathfinding(bool startFollow,Vector3 targetPos)
     {
         base.DoPathfinding(startFollow,targetPos);
         if (startFollow)
         {
+            destinationReached = false;
+            CanBeInteracted(false);
             PathRequestManager.RequestPath(transform.position,targetPos, FollowPath);
         }
         else
         {
             PathRequestManager.RequestPath(transform.position,targetPos, OnPathFound);
         }
-        
+    }
+    
+    public void CanBeInteracted(bool value)
+    {
+        hitCollider.enabled = value;
     }
     
     public void FollowPath(Vector3[] newPath, bool pathSuccessful)
@@ -61,6 +68,8 @@ public class Unit : Interactable
             if (transform.position == currentWaypoint) {
                 targetIndex ++;
                 if (targetIndex >= path.Length) {
+                    destinationReached = true;
+                    CanBeInteracted(true);
                     yield break;
                 }
                 currentWaypoint = path[targetIndex];
@@ -68,10 +77,11 @@ public class Unit : Interactable
 
             transform.position = Vector3.MoveTowards(transform.position,currentWaypoint,speed * Time.deltaTime);
             yield return null;
-
         }
-    }
 
+        
+    }
+    
     public void OnDrawGizmos() {
         if (path != null) {
             if (successfullPathFound)

@@ -8,6 +8,7 @@ public abstract class Interactable : MonoBehaviour
     
     [SerializeField] private InteractableData interactableData;
     [SerializeField] private List<ActionData> possibleActions;
+    [SerializeField] protected Collider hitCollider;
 
     public InteractableData getInteractableData => interactableData;
     public List<ActionData> getActionsData => possibleActions;

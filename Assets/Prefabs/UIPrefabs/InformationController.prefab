@@ -3390,7 +3390,11 @@ MonoBehaviour:
   scrollRect: {fileID: 7924162170557804146}
   descriptionLabel: {fileID: 6601410322323642171}
   cancelActionData: {fileID: 11400000, guid: f94dc3e4ae1e6464487c946afb1027b7, type: 2}
-  actionPrefabs: []
+  actionPrefabs:
+  - {fileID: 5775715594544143096, guid: 1e981ef8f70654547acfdfcb9f3fc8ab, type: 3}
+  - {fileID: 3348608250764425628, guid: 090ab5710a066754b9d4ad56ae34c410, type: 3}
+  - {fileID: 3271377722974583573, guid: a9cf2f84555e6474681ce3fdb037827f, type: 3}
+  - {fileID: 7992111631981119076, guid: 75a2f651bfe840c44a07d0a82970eeef, type: 3}
 --- !u!1 &8423247822205939767
 GameObject:
   m_ObjectHideFlags: 0

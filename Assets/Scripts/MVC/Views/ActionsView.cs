@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Actions;
@@ -21,11 +22,9 @@ namespace MVC.Views
         private TextMeshProUGUI descriptionLabel;
         
         [SerializeField] private ActionData cancelActionData;
-
-        [Header("These prefabs must be in the same order as ActionType")]
-        [SerializeField] private List<GameObject> actionPrefabs;
         
         private BaseAction cancelAction;
+        private BaseAction selectedAction;
 
         private List<BaseAction> availableActions = new List<BaseAction>();
         private List<BaseAction> currentActions = new List<BaseAction>();
@@ -44,15 +43,14 @@ namespace MVC.Views
         public void ShowActions(List<ActionData> actionDatas)
         {
             ChangeAllActionsVisibility(false);
-            
             MakeActionsVisible(actionDatas);
         }
         
         public void InitialSetupForAvailableActions()
         {
-            for (int i = 0; i < Enum.GetNames(typeof(ActionType)).Length - 2; i++)
+            for (int i = 2; i < Enum.GetNames(typeof(ActionType)).Length; i++)
             {
-                var spawnedAction = ObjectPool.Instance.SpawnFromPool("Action",Vector3.zero, Quaternion.identity, scrollRect.content).GetComponent<BaseAction>();
+                var spawnedAction = ObjectPool.Instance.SpawnFromPool(((ActionType)i).ToString(),Vector3.zero, Quaternion.identity, scrollRect.content).GetComponent<BaseAction>();
                 //Nedense spawn ederken scaleleri bozuluyor
                 spawnedAction.transform.localScale = Vector3.one;
                 spawnedAction.SetActionType((ActionType)i);
@@ -66,7 +64,7 @@ namespace MVC.Views
         
         private void AddCancelAction()
         {
-            cancelAction = ObjectPool.Instance.SpawnFromPool("Action", Vector3.zero, Quaternion.identity, scrollRect.content).GetComponent<BaseAction>();
+            cancelAction = ObjectPool.Instance.SpawnFromPool((ActionType.Cancel).ToString(), Vector3.zero, Quaternion.identity, scrollRect.content).GetComponent<BaseAction>();
             cancelAction.SetupView(cancelActionData);
             //Nedense spawn ederken scaleleri bozuluyor
             cancelAction.transform.localScale = Vector3.one;
@@ -95,14 +93,35 @@ namespace MVC.Views
             
             cancelAction.gameObject.SetActive(true);
             currentActions.Add(cancelAction);
+
+            SelectAction(actionDatas[0]);
             
             //LayoutRebuilder.ForceRebuildLayoutImmediate(scrollRect.content);
         }
 
         public void SelectAction(ActionData actionData)
         {
+            if (selectedAction != null)
+            {
+                selectedAction.CancelAction();
+                ChangeActionColor(Color.white);
+            }
             var actionToUse = availableActions.Find(m => m.GetActionType() == actionData.actionType);
+            selectedAction = actionToUse;
+            selectedAction.StartAction();
+            ChangeActionColor(Color.yellow);
             descriptionLabel.text = actionData.description;
+        }
+        
+
+        public void TriggerCurrentAction()
+        {
+            selectedAction.DoAction();
+        }
+
+        private void ChangeActionColor(Color color)
+        {
+            selectedAction.GetButton().image.color = color;
         }
     }
 }

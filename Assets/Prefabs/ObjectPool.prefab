@@ -53,6 +53,15 @@ MonoBehaviour:
   - tag: Soldier
     prefab: {fileID: 5459282213383679524, guid: 042bfcd1f32a93b4b800050d4f435839, type: 3}
     size: 100
-  - tag: Action
+  - tag: Placeholder
     prefab: {fileID: 3348608250764425628, guid: 090ab5710a066754b9d4ad56ae34c410, type: 3}
-    size: 100
+    size: 1
+  - tag: Cancel
+    prefab: {fileID: 5775715594544143096, guid: 1e981ef8f70654547acfdfcb9f3fc8ab, type: 3}
+    size: 1
+  - tag: Follow
+    prefab: {fileID: 3271377722974583573, guid: a9cf2f84555e6474681ce3fdb037827f, type: 3}
+    size: 1
+  - tag: Place
+    prefab: {fileID: 7992111631981119076, guid: 75a2f651bfe840c44a07d0a82970eeef, type: 3}
+    size: 1

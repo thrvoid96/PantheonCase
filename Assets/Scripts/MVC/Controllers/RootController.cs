@@ -12,8 +12,7 @@ namespace MVC.Controllers
         public enum ControllerTypeEnum
         {
             Information,
-            Actions,
-            GameOver
+            Actions
         }
 
         // References to the subcontrollers.
@@ -22,9 +21,6 @@ namespace MVC.Controllers
         private InformationController infoController;
         [SerializeField]
         private ActionsController actionsController;
-        /*
-        [SerializeField] 
-        private GameOverController gameOverController;*/
 
         /// <summary>
         /// Unity method called on first frame.
@@ -33,21 +29,16 @@ namespace MVC.Controllers
         {
             infoController.root = this;
             actionsController.root = this;
-            //gameOverController.root = this;
-
-            //ChangeController(ControllerTypeEnum.Information);
+            
+            DisengageController(ControllerTypeEnum.Information);
         }
 
         /// <summary>
-        /// Method used by subcontrollers to change game phase.
-        /// Closes every other controller after used
+        /// Method used by subcontrollers to change UI state.
         /// </summary>
         /// <param name="controller">Controller type.</param>
-        public void ChangeController(ControllerTypeEnum controller)
+        public void EngageController(ControllerTypeEnum controller)
         {
-            // Reseting subcontrollers.
-            DisengageAllControllers();
-
             // Enabling subcontroller based on type.
             switch (controller)
             {
@@ -57,8 +48,25 @@ namespace MVC.Controllers
                 case ControllerTypeEnum.Actions:
                     actionsController.EngageController();
                     break;
-                case ControllerTypeEnum.GameOver:
-                    //gameOverController.EngageController();
+                default:
+                    break;
+            }
+        }
+        
+        /// <summary>
+        /// Method used by subcontrollers to change UI state.
+        /// </summary>
+        /// <param name="controller">Controller type.</param>
+        public void DisengageController(ControllerTypeEnum controller)
+        {
+            // Enabling subcontroller based on type.
+            switch (controller)
+            {
+                case ControllerTypeEnum.Information:
+                    infoController.DisengageController();
+                    break;
+                case ControllerTypeEnum.Actions:
+                    actionsController.DisengageController();
                     break;
                 default:
                     break;
@@ -74,17 +82,10 @@ namespace MVC.Controllers
         {
             actionsController.SetupActionsView(actionDatas);
         }
-        
-        /// <summary>
-        /// Method used to disable all attached subcontrollers.
-        /// </summary>
-        private void DisengageAllControllers()
+
+        public void TriggerCurrentAction()
         {
-            infoController.DisengageController();
-            //gameController.DisengageController();
-            //gameOverController.DisengageController();
+            actionsController.TriggerCurrentAction();
         }
-    
-    
     }
 }
