@@ -60,6 +60,7 @@ namespace MVC.Views
             AddCancelAction();
             //LayoutRebuilder.ForceRebuildLayoutImmediate(scrollRect.content);
             ChangeAllActionsVisibility(false);
+            PlayerController.Instance.playerInputGiven.AddListener(TriggerCurrentAction);
         }
         
         private void AddCancelAction()
@@ -118,14 +119,19 @@ namespace MVC.Views
             var actionToUse = availableActions.Find(m => m.GetActionType() == actionType);
             selectedAction = actionToUse;
             selectedAction.StartAction();
-            ChangeActionColor(Color.yellow);
+            
+            if (actionType != ActionType.Cancel)
+            {
+                ChangeActionColor(Color.yellow);
+            }
+            
             descriptionLabel.text = actionToUse.currentReferenceData.description;
         }
         
 
-        public bool TriggerCurrentAction()
+        public void TriggerCurrentAction()
         {
-            return selectedAction.DoAction();
+            selectedAction.DoAction();
         }
 
         private void ChangeActionColor(Color color)

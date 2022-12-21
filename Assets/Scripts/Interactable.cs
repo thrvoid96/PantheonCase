@@ -9,6 +9,7 @@ public abstract class Interactable : MonoBehaviour
     [SerializeField] private List<ActionData> possibleActions;
     [SerializeField] protected Collider hitCollider;
     private bool placedOnGrid;
+    public bool currentlyDoingAction { get; protected set; }
 
     public InteractableData getInteractableData => interactableData;
     public List<ActionData> getActionsData => possibleActions;

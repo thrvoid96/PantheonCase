@@ -23,6 +23,7 @@ namespace Actions
             base.DoAction();
             StopCoroutine(nameof(CheckForAvailablePath));
             PlayerController.Instance.selectedInteractable.DoPathfinding(true,hit.point);
+            PlayerController.Instance.UnselectInteractable();
             return true;
         }
 

@@ -82,10 +82,6 @@ namespace MVC.Controllers
         {
             actionsController.SetupActionsView(actionDatas);
         }
-
-        public bool TriggerCurrentAction()
-        {
-            return actionsController.TriggerCurrentAction();
-        }
+        
     }
 }

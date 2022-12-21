@@ -14,6 +14,7 @@ public class Unit : Interactable
     public override void DoPathfinding(bool startFollow,Vector3 targetPos)
     {
         base.DoPathfinding(startFollow,targetPos);
+        currentlyDoingAction = true;
         if (startFollow)
         {
             destinationReached = false;
@@ -63,6 +64,7 @@ public class Unit : Interactable
                 targetIndex ++;
                 if (targetIndex >= path.Length) {
                     destinationReached = true;
+                    currentlyDoingAction = false;
                     CanBeInteracted(true);
                     yield break;
                 }

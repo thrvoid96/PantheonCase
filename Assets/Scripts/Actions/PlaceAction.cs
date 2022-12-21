@@ -43,8 +43,6 @@ namespace Actions
             {
                 PlayerController.Instance.selectedInteractable.gameObject.SetActive(false);
             }
-
-            PlayerController.Instance.UnselectInteractable();
         }
         
         IEnumerator WaitForPlaceInput()

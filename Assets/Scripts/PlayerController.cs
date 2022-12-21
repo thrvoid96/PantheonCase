@@ -1,11 +1,14 @@
 using System.Collections;
 using MVC.Controllers;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerController : Singleton<PlayerController>
 {
     private Coroutine _coroutine;
     public Interactable selectedInteractable { get; private set; }
+
+    public UnityEvent playerInputGiven;
     
     public void SelectNewInteractable(Interactable interactable)
     {
@@ -32,7 +35,12 @@ public class PlayerController : Singleton<PlayerController>
     {
         StopCoroutine(nameof(WaitForUserInput));
         RootController.Instance.DisengageController(RootController.ControllerTypeEnum.Information);
-        selectedInteractable.CanBeInteracted(true);
+        
+        if (!selectedInteractable.currentlyDoingAction)
+        {
+            selectedInteractable.CanBeInteracted(true);
+        }
+        
         selectedInteractable.ClearPath();
         selectedInteractable = null;
     }
@@ -43,10 +51,11 @@ public class PlayerController : Singleton<PlayerController>
         {
             if (Input.GetMouseButtonDown(1))
             {
-                bool actionCompleted = RootController.Instance.TriggerCurrentAction();
+                playerInputGiven?.Invoke();
             }
 
             yield return null;
         }
     }
+    
 }
