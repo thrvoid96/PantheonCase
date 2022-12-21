@@ -83,9 +83,9 @@ namespace MVC.Controllers
             actionsController.SetupActionsView(actionDatas);
         }
 
-        public void TriggerCurrentAction()
+        public bool TriggerCurrentAction()
         {
-            actionsController.TriggerCurrentAction();
+            return actionsController.TriggerCurrentAction();
         }
     }
 }

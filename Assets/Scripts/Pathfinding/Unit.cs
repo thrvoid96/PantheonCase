@@ -17,7 +17,6 @@ public class Unit : Interactable
         if (startFollow)
         {
             destinationReached = false;
-            CanBeInteracted(false);
             PathRequestManager.RequestPath(transform.position,targetPos, FollowPath);
         }
         else
@@ -25,12 +24,7 @@ public class Unit : Interactable
             PathRequestManager.RequestPath(transform.position,targetPos, OnPathFound);
         }
     }
-    
-    public void CanBeInteracted(bool value)
-    {
-        hitCollider.enabled = value;
-    }
-    
+
     public void FollowPath(Vector3[] newPath, bool pathSuccessful)
     {
         successfullPathFound = pathSuccessful;
@@ -103,6 +97,11 @@ public class Unit : Interactable
                 }
             }
         }
+    }
+
+    public override void ClearPath()
+    {
+        path = null;
     }
 
     public override void OnMouseDown()

@@ -10,10 +10,15 @@ public class PlayerController : Singleton<PlayerController>
     public void SelectNewInteractable(Interactable interactable)
     {
         selectedInteractable = interactable;
-        selectedInteractable.ChangeSprite(Color.green);
+        selectedInteractable.CanBeInteracted(false);
+        //selectedInteractable.ChangeSprite(Color.green);
         RootController.Instance.EngageController(RootController.ControllerTypeEnum.Information);
+        //Debug.LogError(selectedInteractable);
         RootController.Instance.SetupInfoPanel(selectedInteractable.getInteractableData);
+        //Debug.LogError(selectedInteractable);
         RootController.Instance.SetupActionsPanel(selectedInteractable.getActionsData);
+        //Debug.LogError(selectedInteractable);
+        
 
         if (_coroutine != null)
         {
@@ -27,6 +32,8 @@ public class PlayerController : Singleton<PlayerController>
     {
         StopCoroutine(nameof(WaitForUserInput));
         RootController.Instance.DisengageController(RootController.ControllerTypeEnum.Information);
+        selectedInteractable.CanBeInteracted(true);
+        selectedInteractable.ClearPath();
         selectedInteractable = null;
     }
 
@@ -36,7 +43,7 @@ public class PlayerController : Singleton<PlayerController>
         {
             if (Input.GetMouseButtonDown(1))
             {
-                RootController.Instance.TriggerCurrentAction();
+                bool actionCompleted = RootController.Instance.TriggerCurrentAction();
             }
 
             yield return null;

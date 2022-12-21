@@ -64,8 +64,8 @@ namespace MVC.Views
         
         private void AddCancelAction()
         {
-            cancelAction = ObjectPool.Instance.SpawnFromPool((ActionType.Cancel).ToString(), Vector3.zero, Quaternion.identity, scrollRect.content).GetComponent<BaseAction>();
-            cancelAction.buttonClickedEvent.AddListener(delegate{ChangeSelectedAction(cancelAction.GetActionType());});
+            cancelAction = ObjectPool.Instance.SpawnFromPool(ActionType.Cancel.ToString(), Vector3.zero, Quaternion.identity, scrollRect.content).GetComponent<BaseAction>();
+            cancelAction.buttonClickedEvent.AddListener(delegate{ChangeSelectedAction(ActionType.Cancel);});
             cancelAction.SetupView(cancelActionData);
             //Nedense spawn ederken scaleleri bozuluyor
             cancelAction.transform.localScale = Vector3.one;
@@ -100,7 +100,8 @@ namespace MVC.Views
             
             cancelAction.gameObject.SetActive(true);
             currentActions.Add(cancelAction);
-
+            selectedAction = null;
+            
             ChangeSelectedAction(actionDatas[0].actionType);
             
             //LayoutRebuilder.ForceRebuildLayoutImmediate(scrollRect.content);
@@ -122,9 +123,9 @@ namespace MVC.Views
         }
         
 
-        public void TriggerCurrentAction()
+        public bool TriggerCurrentAction()
         {
-            selectedAction.DoAction();
+            return selectedAction.DoAction();
         }
 
         private void ChangeActionColor(Color color)

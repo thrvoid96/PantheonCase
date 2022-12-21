@@ -35,6 +35,8 @@ public abstract class Building : Interactable
             returnValue = true;
         }
 
+        SetPlacementBool(returnValue);
+        CanBeInteracted(returnValue);
         return returnValue;
     }
 }

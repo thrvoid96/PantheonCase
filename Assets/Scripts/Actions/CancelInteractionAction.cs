@@ -7,13 +7,14 @@ namespace Actions
         public override void StartAction()
         {
             base.StartAction();
-            PlayerController.Instance.selectedInteractable.ChangeSprite(Color.magenta);
+            //PlayerController.Instance.selectedInteractable.ChangeSprite(Color.magenta);
             PlayerController.Instance.UnselectInteractable();
         }
 
-        public override void DoAction()
+        public override bool DoAction()
         {
             base.DoAction();
+            return true;
         }
 
         public override void CancelAction()

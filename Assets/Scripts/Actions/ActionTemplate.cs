@@ -9,9 +9,10 @@ namespace Actions
             base.StartAction();
         }
 
-        public override void DoAction()
+        public override bool DoAction()
         {
             base.DoAction();
+            return false;
         }
 
         public override void CancelAction()

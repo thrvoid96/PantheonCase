@@ -139,7 +139,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f49baead53d3934e8e465b645e7d399, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allActions: []
+  interactableData: {fileID: 11400000, guid: ce78b7dbc5691c34d83e95f9d7c25a46, type: 2}
+  possibleActions:
+  - {fileID: 11400000, guid: 63e853671736c4043b93817cd17a9b39, type: 2}
+  hitCollider: {fileID: 1532294830210803409}
   buildingParts:
   - {fileID: 242295571035410805}
   - {fileID: 5504465775496297863}

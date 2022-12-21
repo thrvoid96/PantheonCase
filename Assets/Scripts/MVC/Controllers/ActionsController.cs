@@ -45,9 +45,9 @@ public class ActionsController : SubController<ActionsView>
         view.ShowActions(actionDatas);
     }
 
-    public void TriggerCurrentAction()
+    public bool TriggerCurrentAction()
     {
-        view.TriggerCurrentAction();
+        return view.TriggerCurrentAction();
     }
     
 

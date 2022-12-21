@@ -48,6 +48,7 @@ namespace Actions
             return actionButton;
         }
         
+        
         /// <summary>
         /// Actions on click event handle.
         /// </summary>
@@ -61,9 +62,9 @@ namespace Actions
         
         }
     
-        public virtual void DoAction()
+        public virtual bool DoAction()
         {
-        
+            return false;
         }
 
         public virtual void CancelAction()

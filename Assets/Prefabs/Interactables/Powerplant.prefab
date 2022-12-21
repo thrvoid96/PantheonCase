@@ -337,7 +337,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33a24c7b3c4e37f428b08d86eed95d1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allActions: []
+  interactableData: {fileID: 11400000, guid: 3ca18bc76890fe4449af9f6b79d00e88, type: 2}
+  possibleActions:
+  - {fileID: 11400000, guid: 63e853671736c4043b93817cd17a9b39, type: 2}
+  hitCollider: {fileID: 2353320318607674685}
   buildingParts:
   - {fileID: 4424274353699112283}
   - {fileID: 8842900651718802054}

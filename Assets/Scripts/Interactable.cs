@@ -5,15 +5,38 @@ using UnityEngine;
 
 public abstract class Interactable : MonoBehaviour
 {
-    
     [SerializeField] private InteractableData interactableData;
     [SerializeField] private List<ActionData> possibleActions;
     [SerializeField] protected Collider hitCollider;
+    private bool placedOnGrid;
 
     public InteractableData getInteractableData => interactableData;
     public List<ActionData> getActionsData => possibleActions;
+
+    public bool CheckIfAlreadyPlaced()
+    {
+        return placedOnGrid;
+    }
+    
+    /// <summary>
+    /// Method to set if the interactable has been put on the grid or not.
+    /// </summary>
+    public void SetPlacementBool(bool value)
+    {
+        placedOnGrid = value;
+    }
+    
+    public void CanBeInteracted(bool value)
+    {
+        hitCollider.enabled = value;
+    }
     
     public virtual void DoPathfinding(bool startFollow,Vector3 targetPos)
+    {
+        
+    }
+
+    public virtual void ClearPath()
     {
         
     }
@@ -23,7 +46,6 @@ public abstract class Interactable : MonoBehaviour
         GetComponent<MeshRenderer>().material.color = color;
     }
     
-
     public virtual bool TryPlacement()
     {
         return false;

@@ -18,13 +18,12 @@ namespace Actions
             _coroutine = StartCoroutine(nameof(CheckForAvailablePath));
         }
 
-        public override void DoAction()
+        public override bool DoAction()
         {
             base.DoAction();
             StopCoroutine(nameof(CheckForAvailablePath));
             PlayerController.Instance.selectedInteractable.DoPathfinding(true,hit.point);
-            PlayerController.Instance.selectedInteractable.ChangeSprite(Color.magenta);
-            PlayerController.Instance.UnselectInteractable();
+            return true;
         }
 
         public override void CancelAction()
