@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Actions;
 using UnityEngine;
 
 namespace MVC.Controllers
@@ -78,9 +79,9 @@ namespace MVC.Controllers
             infoController.SetupInfoView(interactableData);
         }
         
-        public void SetupActionsPanel(List<ActionData> actionDatas)
+        public void SetupActionsPanel(List<BaseAction> actions)
         {
-            actionsController.SetupActionsView(actionDatas);
+            actionsController.SetupActionsView(actions);
         }
         
     }

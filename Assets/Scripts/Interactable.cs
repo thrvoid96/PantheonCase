@@ -1,19 +1,21 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Actions;
 using UnityEngine;
 
 public abstract class Interactable : MonoBehaviour
 {
     [SerializeField] private InteractableData interactableData;
     [SerializeField] protected List<SpriteRenderer> gridParts;
-    [SerializeField] protected List<ActionData> possibleActions;
+    [SerializeField] protected List<BaseAction> actions;
     [SerializeField] protected Collider2D hitCollider;
     private bool placedOnGrid;
     public bool currentlyDoingAction { get; protected set; }
 
+    public List<BaseAction> getActions => actions;
+
     public InteractableData getInteractableData => interactableData;
-    public List<ActionData> getActionsData => possibleActions;
     public bool CheckIfAlreadyPlaced()
     {
         return placedOnGrid;
@@ -22,6 +24,7 @@ public abstract class Interactable : MonoBehaviour
     /// <summary>
     /// Method to set if the interactable has been put on the grid or not.
     /// </summary>
+    /// 
     public void SetPlacementBool(bool value)
     {
         placedOnGrid = value;
@@ -31,7 +34,7 @@ public abstract class Interactable : MonoBehaviour
     {
         hitCollider.enabled = value;
     }
-
+    
     public virtual void ChangeActions()
     {
         

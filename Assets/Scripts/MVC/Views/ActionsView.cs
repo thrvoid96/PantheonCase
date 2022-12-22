@@ -22,60 +22,36 @@ namespace MVC.Views
         [SerializeField]
         private TextMeshProUGUI descriptionLabel;
         
-        [SerializeField] private ActionData cancelActionData;
-        
-        [SerializeField]
-        private ToggleGroup toggleGroup;
-        
-        private BaseAction cancelAction;
+        [SerializeField] private ActionView cancelActionView;
+        [SerializeField] private BaseAction cancelAction;
+        private List<ActionView> availableActions = new List<ActionView>();
+
         private BaseAction selectedAction;
 
-        private List<BaseAction> availableActions = new List<BaseAction>();
-        private List<BaseAction> currentActions = new List<BaseAction>();
-
-        // // Event called when Finish Button is clicked.
-        // public UnityAction OnActionClicked;
-        //
-        // /// <summary>
-        // /// Method called by Finish Button.
-        // /// </summary>
-        // public void ActionClick()
-        // {
-        //     OnActionClicked?.Invoke();
-        // }
-
-        public void ShowActions(List<ActionData> actionDatas)
+        public void ShowActions(List<BaseAction> actions)
         {
             ChangeAllActionsVisibility(false);
-            MakeActionsVisible(actionDatas);
+            MakeActionsVisible(actions);
         }
         
         public void InitialSetupForAvailableActions()
         {
             for (int i = 2; i < Enum.GetNames(typeof(ActionType)).Length; i++)
             {
-                var spawnedAction = ObjectPool.Instance.SpawnFromPool(((ActionType)i).ToString(),Vector3.zero, Quaternion.identity, scrollRect.content).GetComponent<BaseAction>();
+                var spawnedAction = ObjectPool.Instance.SpawnFromPool("ActionView", Vector3.zero, Quaternion.identity, scrollRect.content)
+                    .GetComponent<ActionView>();
+                
                 //Nedense spawn ederken scaleleri bozuluyor
                 spawnedAction.transform.localScale = Vector3.one;
-                spawnedAction.SetActionType((ActionType)i);
                 availableActions.Add(spawnedAction);
             }
             
-            AddCancelAction();
-            //LayoutRebuilder.ForceRebuildLayoutImmediate(scrollRect.content);
+            availableActions.Add(cancelActionView);
+            cancelAction.AttachToView(cancelActionView);
             ChangeAllActionsVisibility(false);
             PlayerController.Instance.playerInputGiven.AddListener(TriggerCurrentAction);
         }
         
-        private void AddCancelAction()
-        {
-            cancelAction = ObjectPool.Instance.SpawnFromPool(ActionType.Cancel.ToString(), Vector3.zero, Quaternion.identity, scrollRect.content).GetComponent<BaseAction>();
-            cancelAction.buttonClickedEvent.AddListener(delegate{ChangeSelectedAction(ActionType.Cancel);});
-            cancelAction.SetupView(cancelActionData);
-            //Nedense spawn ederken scaleleri bozuluyor
-            cancelAction.transform.localScale = Vector3.one;
-            availableActions.Add(cancelAction);
-        }
         
         private void ChangeAllActionsVisibility(bool value)
         {
@@ -85,58 +61,51 @@ namespace MVC.Views
             }
         }
         
-        private void MakeActionsVisible(List<ActionData> actionDatas)
+        private void MakeActionsVisible(List<BaseAction> actions)
         {
-            for (int i = 0; i < currentActions.Count - 1; i++)
+            for (int i = 0; i < availableActions.Count - 1; i++)
             {
-                currentActions[i].buttonClickedEvent.RemoveAllListeners();
+                availableActions[i].RemoveAllListeners();
             }
             
-            currentActions.Clear();
-
-            for (int i = 0; i < actionDatas.Count; i++)
+            for (int i = 0; i < actions.Count; i++)
             {
-                var actionToUse = availableActions.Find(m => m.GetActionType() == actionDatas[i].actionType);
-                actionToUse.SetupView(actionDatas[i]);
-                actionToUse.transform.SetSiblingIndex(i);
-                actionToUse.GetButton().onClick.AddListener(delegate{ChangeSelectedAction(actionToUse.GetActionType());});
-                actionToUse.gameObject.SetActive(true);
-                currentActions.Add(actionToUse);
+                actions[i].AttachToView(availableActions[i]);
+                actions[i].RegisterToEvents(delegate { ChangeSelectedAction(actions[i]); });
+                    
+                availableActions[i].transform.SetSiblingIndex(i);
+                availableActions[i].gameObject.SetActive(true);
             }
             
+            cancelActionView.transform.SetSiblingIndex(actions.Count);
             cancelAction.gameObject.SetActive(true);
-            currentActions.Add(cancelAction);
-            selectedAction = null;
-            
-            ChangeSelectedAction(actionDatas[0].actionType);
+
+            ChangeSelectedAction(actions[0]);
             
             //LayoutRebuilder.ForceRebuildLayoutImmediate(scrollRect.content);
         }
 
-        private void ChangeSelectedAction(ActionType actionType)
+        private void ChangeSelectedAction(BaseAction action)
         {
             if (selectedAction != null)
             {
                 selectedAction.CancelAction();
             }
             
-            var actionToUse = availableActions.Find(m => m.GetActionType() == actionType);
-            selectedAction = actionToUse;
+            selectedAction = action;
             selectedAction.StartAction();
             
-            if (actionType != ActionType.Cancel)
+            if (selectedAction.GetActionType() != ActionType.Cancel)
             {
-                selectedAction.GetButton().Select();
+                selectedAction.getActionView.GetButton().Select();
             }
             
-            descriptionLabel.text = actionToUse.currentReferenceData.description;
+            descriptionLabel.text = selectedAction.getActionData.description;
         }
         
-
         public void TriggerCurrentAction()
         {
             selectedAction.DoAction();
         }
-        
     }
 }

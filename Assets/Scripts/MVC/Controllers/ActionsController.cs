@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Actions;
 using MVC.Views;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -9,8 +10,6 @@ using Random = UnityEngine.Random;
 /// </summary>
 public class ActionsController : SubController<ActionsView>
 {
-    // Reference to current actions data.
-    private List<ActionData> actionDatas;
     
     private void Awake()
     {
@@ -39,10 +38,9 @@ public class ActionsController : SubController<ActionsView>
     /// <summary>
     /// Handling info panel view.
     /// </summary>
-    public void SetupActionsView(List<ActionData> actionDatas)
+    public void SetupActionsView(List<BaseAction> actions)
     {
-        this.actionDatas = actionDatas;
-        view.ShowActions(actionDatas);
+        view.ShowActions(actions);
     }
     
 

@@ -17,7 +17,7 @@ public class PlayerController : Singleton<PlayerController>
         //selectedInteractable.ChangeSprite(Color.green);
         RootController.Instance.EngageController(RootController.ControllerTypeEnum.Information);
         RootController.Instance.SetupInfoPanel(selectedInteractable.getInteractableData);
-        RootController.Instance.SetupActionsPanel(selectedInteractable.getActionsData);
+        RootController.Instance.SetupActionsPanel(selectedInteractable.getActions);
 
 
         if (_coroutine != null)

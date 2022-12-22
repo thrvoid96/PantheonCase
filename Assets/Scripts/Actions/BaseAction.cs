@@ -10,53 +10,39 @@ namespace Actions
         // Reference to action type.
         [SerializeField]
         private ActionType actionType = ActionType.Placeholder;
-    
-        // Reference to name label.
-        [SerializeField]
-        private TextMeshProUGUI nameLabel;
-    
-        // Reference to image label.
-        [SerializeField]
-        private Image imageLabel;
         
-        // Reference to the button.
-        [SerializeField]
-        private Button actionButton;
+        [SerializeField] private ActionData actionData;
+        public ActionData getActionData => actionData;
 
-        public UnityEvent buttonClickedEvent;
-        public ActionData currentReferenceData { get; private set; }
+        private ActionView actionView;
+        public ActionView getActionView => actionView;
     
-        public void SetupView(ActionData currentReferenceData)
+        public void AttachToView(ActionView actionView)
         {
-            this.currentReferenceData = currentReferenceData;
-            nameLabel.text = currentReferenceData.objName;
-            imageLabel.sprite = currentReferenceData.sprite;
+            this.actionView = actionView;
+            actionView.ConnectToView(actionData);
         }
-
-        public void SetActionType(ActionType actionType)
-        {
-            this.actionType = actionType;
-        }
-    
+        
         public ActionType GetActionType()
         {
             return actionType;
         }
 
-        public Button GetButton()
+        public void RegisterToEvents(UnityAction callback)
         {
-            return actionButton;
+            actionView.AddListenerToEvent(callback);
         }
         
-        
-        /// <summary>
-        /// Actions on click event handle.
-        /// </summary>
-        public void CustomButtonClickEvent()
+        public void RemoveFromEvents(UnityAction callback)
         {
-            buttonClickedEvent?.Invoke();
+            actionView.RemoveListenerFromEvent(callback);
         }
 
+        public void ClearAllEvents()
+        {
+            actionView.RemoveAllListeners();
+        }
+        
         public virtual void StartAction()
         {
         

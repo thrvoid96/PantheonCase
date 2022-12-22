@@ -1,13 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Actions;
 using UnityEngine;
 
 public class Barracks : Building
 {
     private Node soliderSpawnNode;
     [SerializeField] private GameObject spawnPoint;
-    [SerializeField] private List<ActionData> nextActions;
+    [SerializeField] private List<BaseAction> nextActions;
     [SerializeField] private LineRenderer lineRenderer;
 
     private Vector3[] lineRendStartPoints;
@@ -47,7 +48,7 @@ public class Barracks : Building
 
     public override void ChangeActions()
     {
-        possibleActions = new List<ActionData>(nextActions);
+        actions = new List<BaseAction>(nextActions);
         nextActions.Clear();
     }
 

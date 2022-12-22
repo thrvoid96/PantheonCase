@@ -37,7 +37,6 @@ namespace Actions
         public override void CancelAction()
         {
             base.CancelAction();
-            Debug.LogError("stopCanceling");
             StopCoroutine(nameof(WaitForPlaceInput));
             
             if (!PlayerController.Instance.selectedInteractable.CheckIfAlreadyPlaced())
