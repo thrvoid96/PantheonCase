@@ -28,6 +28,7 @@ namespace Actions
             if (actionComplete)
             {
                 StopCoroutine(nameof(WaitForPlaceInput));
+                PlayerController.Instance.selectedInteractable.UpdateGridPartColors(true);
                 PlayerController.Instance.UnselectInteractable();
             }
             return actionComplete;
@@ -47,14 +48,22 @@ namespace Actions
         
         IEnumerator WaitForPlaceInput()
         {
+            Node lastGrid = null;
+            
             while (true)
             {
                 Ray ray = CameraMain.Instance.mainCam.ScreenPointToRay(Input.mousePosition);
-                
+
                 if (Physics.Raycast (ray, out hit, Mathf.Infinity,LayerMask.GetMask("Grid")))
                 {
                     var hoveringGrid = CustomGrid.Instance.NodeFromWorldPoint(hit.point);
-                    PlayerController.Instance.selectedInteractable.transform.position = hoveringGrid.worldPosition;
+                    
+                    if (lastGrid != hoveringGrid)
+                    {
+                        PlayerController.Instance.selectedInteractable.transform.position = hoveringGrid.worldPosition;
+                        PlayerController.Instance.selectedInteractable.UpdateGridPartColors(false);
+                        lastGrid = hoveringGrid;
+                    }
                 }
                 else
                 {

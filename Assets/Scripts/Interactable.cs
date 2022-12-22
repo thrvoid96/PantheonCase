@@ -6,8 +6,9 @@ using UnityEngine;
 public abstract class Interactable : MonoBehaviour
 {
     [SerializeField] private InteractableData interactableData;
+    [SerializeField] protected List<SpriteRenderer> gridParts;
     [SerializeField] protected List<ActionData> possibleActions;
-    [SerializeField] protected Collider hitCollider;
+    [SerializeField] protected Collider2D hitCollider;
     private bool placedOnGrid;
     public bool currentlyDoingAction { get; protected set; }
 
@@ -34,6 +35,40 @@ public abstract class Interactable : MonoBehaviour
     public virtual void ChangeActions()
     {
         
+    }
+    public void UpdateGridPartColors(bool placementComplete)
+    {
+        if (placementComplete)
+        {
+            foreach (SpriteRenderer gridSprite in gridParts)
+            {
+                var color = gridSprite.color;
+                color.a = 0f;
+                gridSprite.sortingOrder = 0;
+                gridSprite.color = color;
+            }
+            return;
+        }
+
+        foreach (SpriteRenderer gridSprite in gridParts)
+        {
+            var color = gridSprite.color;
+            
+            if (CustomGrid.Instance.NodeFromWorldPoint(gridSprite.transform.position).walkable)
+            {
+                gridSprite.sortingOrder = 0;
+                color = Color.green;
+            }
+            else
+            {
+                gridSprite.sortingOrder = 2;
+                color = Color.red;
+            }
+
+            color.a = 1f;
+            gridSprite.color = color;
+            
+        }
     }
     
     public virtual void DoPathfinding(bool startFollow,Vector3 targetPos)

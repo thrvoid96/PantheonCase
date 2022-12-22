@@ -5,8 +5,6 @@ using UnityEngine;
 
 public abstract class Building : Interactable
 {
-    [SerializeField] protected List<GameObject> buildingParts;
-    
     /// <summary>
     /// Returns true if the placement was successfull.
     /// </summary>
@@ -16,7 +14,7 @@ public abstract class Building : Interactable
         
         List<Node> tempList = new List<Node>();
         var returnValue = false;
-        foreach (var part in buildingParts)
+        foreach (var part in gridParts)
         {
             var node = CustomGrid.Instance.NodeFromWorldPoint(part.transform.position);
             if (node.walkable)
@@ -25,7 +23,7 @@ public abstract class Building : Interactable
             }
         }
 
-        if (tempList.Count == buildingParts.Count)
+        if (tempList.Count == gridParts.Count)
         {
             foreach (Node node in tempList)
             {

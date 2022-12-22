@@ -39,6 +39,7 @@ namespace Actions
         
         IEnumerator CheckForSpawnPoint()
         {
+            Node lastGrid = null;
             spawnPointObj = PlayerController.Instance.selectedInteractable.GetSpawnPointObj();
             startPos = spawnPointObj.transform.position;
             while (true)
@@ -48,8 +49,13 @@ namespace Actions
                 if (Physics.Raycast (ray, out hit, Mathf.Infinity,LayerMask.GetMask("Grid")))
                 {
                     var hoveringGrid = CustomGrid.Instance.NodeFromWorldPoint(hit.point);
-                    spawnPointObj.transform.position = hoveringGrid.worldPosition;
-                    PlayerController.Instance.selectedInteractable.DoPathfinding(false,hit.point);
+                    if (lastGrid != hoveringGrid)
+                    {
+                        spawnPointObj.transform.position = hoveringGrid.worldPosition;
+                        PlayerController.Instance.selectedInteractable.DoPathfinding(false,hit.point);
+                        lastGrid = hoveringGrid;
+                    }
+                   
                 }
                 else
                 {

@@ -8,6 +8,7 @@ public class Barracks : Building
     private Node soliderSpawnNode;
     [SerializeField] private GameObject spawnPoint;
     [SerializeField] private List<ActionData> nextActions;
+    [SerializeField] private LineRenderer lineRenderer;
 
     public override bool TryPlacement()
     {
@@ -15,6 +16,7 @@ public class Barracks : Building
 
         if (finalResult)
         {
+            lineRenderer.useWorldSpace = true;
             FindClosestEmptyNode();
             ChangeActions();
         }
@@ -41,6 +43,27 @@ public class Barracks : Building
     {
         base.GetSpawnPointObj();
         return spawnPoint;
+    }
+
+    public override void DoPathfinding(bool startFollow, Vector3 targetPos)
+    {
+        base.DoPathfinding(startFollow,targetPos);
+        PathRequestManager.RequestPath(transform.position,targetPos, OnPathFound);
+    }
+    
+    public void OnPathFound(Vector3[] newPath, bool pathSuccessful) {
+        if (pathSuccessful) {
+            
+            Vector3[] newarr = new Vector3[newPath.Length + 1];
+            for (int i = 1; i < newarr.Length; i++)
+            {
+                newarr[i] = newPath[i - 1];
+            }
+
+            newarr[0] = transform.position;
+            lineRenderer.positionCount = newarr.Length;
+            lineRenderer.SetPositions(newarr);
+        }
     }
 
     private void FindClosestEmptyNode()
@@ -71,6 +94,7 @@ public class Barracks : Building
                     {
                         soliderSpawnNode = startNode;
                         spawnPoint.transform.position = soliderSpawnNode.worldPosition;
+                        DoPathfinding(false,spawnPoint.transform.position);
                         return;
                     }
                 }
