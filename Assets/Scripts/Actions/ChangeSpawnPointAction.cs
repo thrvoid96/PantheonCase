@@ -8,7 +8,6 @@ namespace Actions
     {
         private RaycastHit hit;
         private Coroutine _coroutine;
-        private Vector3 startPos;
         private GameObject spawnPointObj;
         public override void StartAction()
         {
@@ -24,24 +23,28 @@ namespace Actions
         public override bool DoAction()
         {
             base.DoAction();
-            StopCoroutine(nameof(CheckForSpawnPoint));
-            PlayerController.Instance.selectedInteractable.SetupLineRenderer(spawnPointObj.transform.position);
-            PlayerController.Instance.UnselectInteractable();
-            return true;
+            
+            var actionComplete = PlayerController.Instance.selectedInteractable.TryChangeSpawnPoint();
+            if (actionComplete)
+            {
+                StopCoroutine(nameof(CheckForSpawnPoint));
+                PlayerController.Instance.UnselectInteractable();
+            }
+
+            return actionComplete;
         }
 
         public override void CancelAction()
         {
             base.CancelAction();
             StopCoroutine(nameof(CheckForSpawnPoint));
-            spawnPointObj.transform.position = startPos;
+            PlayerController.Instance.selectedInteractable.ResetLineRendererToFirst();
         }
         
         IEnumerator CheckForSpawnPoint()
         {
             Node lastGrid = null;
             spawnPointObj = PlayerController.Instance.selectedInteractable.GetSpawnPointObj();
-            startPos = spawnPointObj.transform.position;
             while (true)
             {
                 Ray ray = CameraMain.Instance.mainCam.ScreenPointToRay(Input.mousePosition);

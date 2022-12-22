@@ -6,6 +6,7 @@ using Actions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace MVC.Views
@@ -22,6 +23,9 @@ namespace MVC.Views
         private TextMeshProUGUI descriptionLabel;
         
         [SerializeField] private ActionData cancelActionData;
+        
+        [SerializeField]
+        private ToggleGroup toggleGroup;
         
         private BaseAction cancelAction;
         private BaseAction selectedAction;
@@ -94,6 +98,7 @@ namespace MVC.Views
             {
                 var actionToUse = availableActions.Find(m => m.GetActionType() == actionDatas[i].actionType);
                 actionToUse.SetupView(actionDatas[i]);
+                actionToUse.transform.SetSiblingIndex(i);
                 actionToUse.GetButton().onClick.AddListener(delegate{ChangeSelectedAction(actionToUse.GetActionType());});
                 actionToUse.gameObject.SetActive(true);
                 currentActions.Add(actionToUse);
@@ -113,7 +118,6 @@ namespace MVC.Views
             if (selectedAction != null)
             {
                 selectedAction.CancelAction();
-                ChangeActionColor(Color.white);
             }
             
             var actionToUse = availableActions.Find(m => m.GetActionType() == actionType);
@@ -122,7 +126,7 @@ namespace MVC.Views
             
             if (actionType != ActionType.Cancel)
             {
-                ChangeActionColor(Color.yellow);
+                selectedAction.GetButton().Select();
             }
             
             descriptionLabel.text = actionToUse.currentReferenceData.description;
@@ -133,10 +137,6 @@ namespace MVC.Views
         {
             selectedAction.DoAction();
         }
-
-        private void ChangeActionColor(Color color)
-        {
-            selectedAction.GetButton().image.color = color;
-        }
+        
     }
 }

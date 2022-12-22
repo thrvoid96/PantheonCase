@@ -1176,7 +1176,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 4632258691783502425}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.5673591
+  m_Size: 0.56735915
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2057,6 +2057,7 @@ GameObject:
   - component: {fileID: 7924162170806938499}
   - component: {fileID: 7924162170806938498}
   - component: {fileID: 6928160679638066663}
+  - component: {fileID: 321725819672805035}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -2081,7 +2082,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0.000091553, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &7924162170806938498
 MonoBehaviour:
@@ -2117,10 +2118,23 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 110, y: 110}
+  m_CellSize: {x: 125, y: 125}
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!114 &321725819672805035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7924162170806938496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fafe2cfe61f6974895a912c3755e8f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AllowSwitchOff: 1
 --- !u!1 &7924162170925085363
 GameObject:
   m_ObjectHideFlags: 0
@@ -2403,7 +2417,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.9}
-  m_AnchoredPosition: {x: 0, y: -0.000061035156}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7924162171158082911
@@ -2565,7 +2579,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 7924162171803228319}
   m_Direction: 0
   m_Value: 1
-  m_Size: 0.99999976
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2782,7 +2796,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7924162170366682768}
   m_HandleRect: {fileID: 7924162170366682769}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -3390,6 +3404,7 @@ MonoBehaviour:
   scrollRect: {fileID: 7924162170557804146}
   descriptionLabel: {fileID: 6601410322323642171}
   cancelActionData: {fileID: 11400000, guid: f94dc3e4ae1e6464487c946afb1027b7, type: 2}
+  toggleGroup: {fileID: 0}
 --- !u!1 &8423247822205939767
 GameObject:
   m_ObjectHideFlags: 0

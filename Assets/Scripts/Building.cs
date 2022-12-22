@@ -37,9 +37,4 @@ public abstract class Building : Interactable
         CanBeInteracted(returnValue);
         return returnValue;
     }
-
-    public override void SetupLineRenderer(Vector3 endPos)
-    {
-        base.SetupLineRenderer(endPos);
-    }
 }

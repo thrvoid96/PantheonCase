@@ -34,16 +34,8 @@ public class Unit : Interactable
             path = newPath;
             targetIndex = 0;
             
-            Vector3[] newarr = new Vector3[newPath.Length + 1];
-            for (int i = 1; i < newarr.Length; i++)
-            {
-                newarr[i] = newPath[i - 1];
-            }
-            
-            newarr[0] = transform.position;
-            lineRenderer.positionCount = newarr.Length;
-            lineRenderer.SetPositions(newarr);
-            
+            SetLineRendererPoints();
+
             //CustomGrid.Instance.NodeFromWorldPoint(transform.position).walkable = true;
             //CustomGrid.Instance.NodeFromWorldPoint(path[path.Length - 1]).walkable = false;
             StopCoroutine(nameof(StartFollow));
@@ -61,15 +53,7 @@ public class Unit : Interactable
             path = newPath;
             targetIndex = 0;
             
-            Vector3[] newarr = new Vector3[newPath.Length + 1];
-            for (int i = 1; i < newarr.Length; i++)
-            {
-                newarr[i] = newPath[i - 1];
-            }
-
-            newarr[0] = transform.position;
-            lineRenderer.positionCount = newarr.Length;
-            lineRenderer.SetPositions(newarr);
+            SetLineRendererPoints();
         }
     }
 
@@ -93,6 +77,20 @@ public class Unit : Interactable
             lineRenderer.SetPosition(0,transform.position);
             yield return null;
         }
+    }
+
+
+    private void SetLineRendererPoints()
+    {
+        Vector3[] newarr = new Vector3[path.Length + 1];
+        for (int i = 1; i < newarr.Length; i++)
+        {
+            newarr[i] = path[i - 1];
+        }
+            
+        newarr[0] = transform.position;
+        lineRenderer.positionCount = newarr.Length;
+        lineRenderer.SetPositions(newarr);
     }
 
     private void ShiftLineRendererPoints()

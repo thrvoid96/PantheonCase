@@ -75,20 +75,15 @@ public abstract class Interactable : MonoBehaviour
     {
         
     }
-
-    public virtual void SetupLineRenderer(Vector3 endPos)
-    {
-        
-    }
-
+    
     public virtual void ClearPath()
     {
         
     }
 
-    public virtual void ChangeSpawnPoint(Node nodeToTest)
+    public virtual bool TryChangeSpawnPoint()
     {
-        
+        return false;
     }
 
     public virtual GameObject GetSpawnPointObj()
@@ -104,6 +99,11 @@ public abstract class Interactable : MonoBehaviour
     public virtual bool TryPlacement()
     {
         return false;
+    }
+
+    public virtual void ResetLineRendererToFirst()
+    {
+        
     }
 
     public virtual void OnMouseDown()

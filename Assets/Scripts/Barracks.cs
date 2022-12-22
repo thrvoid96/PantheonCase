@@ -10,6 +10,9 @@ public class Barracks : Building
     [SerializeField] private List<ActionData> nextActions;
     [SerializeField] private LineRenderer lineRenderer;
 
+    private Vector3[] lineRendStartPoints;
+    private Vector3 spawnPointStartPosition;
+
     public override bool TryPlacement()
     {
         var finalResult = base.TryPlacement();
@@ -24,13 +27,22 @@ public class Barracks : Building
         return finalResult;
     }
 
-    public override void ChangeSpawnPoint(Node nodeToTest)
+    public override bool TryChangeSpawnPoint()
     {
-        base.ChangeSpawnPoint(nodeToTest);
-        if (!nodeToTest.walkable)
+        base.TryChangeSpawnPoint();
+        if (CustomGrid.Instance.NodeFromWorldPoint(spawnPoint.transform.position).walkable)
         {
-            FindClosestEmptyNode();
+            return true;
         }
+
+        return false;
+    }
+
+    public override void ResetLineRendererToFirst()
+    {
+        lineRenderer.positionCount = lineRendStartPoints.Length;
+        lineRenderer.SetPositions(lineRendStartPoints);
+        spawnPoint.transform.position = spawnPointStartPosition;
     }
 
     public override void ChangeActions()
@@ -42,6 +54,7 @@ public class Barracks : Building
     public override GameObject GetSpawnPointObj()
     {
         base.GetSpawnPointObj();
+        SaveStartPositions();
         return spawnPoint;
     }
 
@@ -76,6 +89,13 @@ public class Barracks : Building
         {
             TestForNodes(soliderSpawnNode.worldPosition);
         }
+    }
+
+    private void SaveStartPositions()
+    {
+        Array.Resize(ref lineRendStartPoints,lineRenderer.positionCount);
+        lineRenderer.GetPositions(lineRendStartPoints);
+        spawnPointStartPosition = spawnPoint.transform.position;
     }
 
     private void TestForNodes(Vector3 positionToStartTest)
