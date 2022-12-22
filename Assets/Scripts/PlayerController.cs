@@ -16,12 +16,9 @@ public class PlayerController : Singleton<PlayerController>
         selectedInteractable.CanBeInteracted(false);
         //selectedInteractable.ChangeSprite(Color.green);
         RootController.Instance.EngageController(RootController.ControllerTypeEnum.Information);
-        //Debug.LogError(selectedInteractable);
         RootController.Instance.SetupInfoPanel(selectedInteractable.getInteractableData);
-        //Debug.LogError(selectedInteractable);
         RootController.Instance.SetupActionsPanel(selectedInteractable.getActionsData);
-        //Debug.LogError(selectedInteractable);
-        
+
 
         if (_coroutine != null)
         {

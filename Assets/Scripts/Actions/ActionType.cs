@@ -14,6 +14,8 @@ namespace Actions
         //<= Can put your new enums starting from here.
         Follow,
         Place,
+        ChangeSpawnPoint,
+        SpawnSoldier
         //<= Or here.
     }
 }

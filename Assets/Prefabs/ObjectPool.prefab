@@ -65,3 +65,9 @@ MonoBehaviour:
   - tag: Place
     prefab: {fileID: 7992111631981119076, guid: 75a2f651bfe840c44a07d0a82970eeef, type: 3}
     size: 1
+  - tag: ChangeSpawnPoint
+    prefab: {fileID: 242477614301833875, guid: 89a9ec252351e044083138a67ef6dd51, type: 3}
+    size: 1
+  - tag: SpawnSoldier
+    prefab: {fileID: 6423713428107988136, guid: 58b7963dc9f2ae4409fbf3c050b0d36a, type: 3}
+    size: 1

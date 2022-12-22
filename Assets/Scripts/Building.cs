@@ -31,12 +31,17 @@ public abstract class Building : Interactable
             {
                 node.walkable = false;
             }
-
+            
             returnValue = true;
         }
 
         SetPlacementBool(returnValue);
         CanBeInteracted(returnValue);
         return returnValue;
+    }
+
+    public override void SetupLineRenderer(Vector3 endPos)
+    {
+        base.SetupLineRenderer(endPos);
     }
 }

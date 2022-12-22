@@ -32,6 +32,8 @@ public class Unit : Interactable
         if (pathSuccessful) {
             path = newPath;
             targetIndex = 0;
+            CustomGrid.Instance.NodeFromWorldPoint(transform.position).walkable = true;
+            CustomGrid.Instance.NodeFromWorldPoint(path[path.Length - 1]).walkable = false;
             StopCoroutine(nameof(StartFollow));
             StartCoroutine(nameof(StartFollow));
         }
