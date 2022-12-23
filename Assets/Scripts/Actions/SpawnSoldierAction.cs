@@ -14,6 +14,10 @@ namespace Actions
         {
             base.DoAction();
             var spawnPoint = PlayerController.Instance.selectedInteractable.GetSpawnPointObj();
+            if (!CustomGrid.Instance.NodeFromWorldPoint(spawnPoint.transform.position).walkable)
+            {
+                return false;
+            }
             Transform interactableTrans;
             var newSoldier = ObjectPool.Instance.SpawnFromPool("Soldier",
                 (interactableTrans = PlayerController.Instance.selectedInteractable.transform).position,

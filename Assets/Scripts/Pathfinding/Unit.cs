@@ -34,12 +34,9 @@ public class Unit : Interactable
         successfullPathFound = pathSuccessful;
         if (pathSuccessful) {
             path = newPath;
-            targetIndex = 0;
-            
+            targetIndex = 1;
             SetLineRendererPoints();
-
-            //CustomGrid.Instance.NodeFromWorldPoint(transform.position).walkable = true;
-            //CustomGrid.Instance.NodeFromWorldPoint(path[path.Length - 1]).walkable = false;
+            
             StopCoroutine(nameof(StartFollow));
             StartCoroutine(nameof(StartFollow));
         }
@@ -55,6 +52,7 @@ public class Unit : Interactable
             path = newPath;
             targetIndex = 1;
             SetLineRendererPoints();
+            
             lineRenderer.startColor = Color.green;
             lineRenderer.endColor = Color.green;
         }
@@ -68,8 +66,10 @@ public class Unit : Interactable
     IEnumerator StartFollow() {
         Vector3 currentWaypoint = path[1];
         while (true) {
-            if (transform.position == currentWaypoint) {
-                targetIndex ++;
+            if (Vector3.Distance(currentWaypoint, transform.position) < 0.1f) {
+                
+                targetIndex+=1;
+                ShiftLineRendererPoints();
                 
                 if (targetIndex >= path.Length) {
                     destinationReached = true;
@@ -77,8 +77,8 @@ public class Unit : Interactable
                     CanBeInteracted(true);
                     yield break;
                 }
+                
                 currentWaypoint = path[targetIndex];
-                ShiftLineRendererPoints();
             }
 
             transform.position = Vector3.MoveTowards(transform.position,currentWaypoint,speed * Time.deltaTime);
