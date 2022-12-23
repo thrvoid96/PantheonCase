@@ -1422,11 +1422,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8546156683379940008, guid: b49d9ac8b7bf02048bd4a8fddb10fc28, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8546156683379940008, guid: b49d9ac8b7bf02048bd4a8fddb10fc28, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -17
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8546156683714742932, guid: b49d9ac8b7bf02048bd4a8fddb10fc28, type: 3}
       propertyPath: m_Pivot.x
