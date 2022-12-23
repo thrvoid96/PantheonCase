@@ -20,7 +20,7 @@ public class CustomLayoutGroup : MonoBehaviour
     /// How much the items are indented from top and bottom of the scroll view.
     /// </summary>
     public float VerticalMargin { get { return verticalMargin; } }
-
+    
     /// <summary>
     /// Is the scroll view oriented horizontally?
     /// </summary>
@@ -50,6 +50,12 @@ public class CustomLayoutGroup : MonoBehaviour
     /// The height for each child of the scroll view.
     /// </summary>
     public float ChildHeight { get { return childHeight; } }
+    
+    /// <summary>
+    /// Offsets all the items accordingly.
+    /// </summary>
+    public Vector2 Offset;
+
 
     #endregion
 
@@ -86,6 +92,7 @@ public class CustomLayoutGroup : MonoBehaviour
     /// </summary>
     [SerializeField]
     private float horizontalMargin, verticalMargin;
+    
 
     /// <summary>
     /// Is the scroll view oriented horizontall or vertically?
@@ -132,6 +139,7 @@ public class CustomLayoutGroup : MonoBehaviour
         {
             Vector2 childPos = rtChildren[i].localPosition;
             childPos.x = originX + posOffset + i * (childWidth + itemSpacing);
+            childPos += Offset;
             rtChildren[i].localPosition = childPos;
         }
     }
@@ -147,7 +155,13 @@ public class CustomLayoutGroup : MonoBehaviour
         {
             Vector2 childPos = rtChildren[i].localPosition;
             childPos.y = originY + posOffset + i * (childHeight + itemSpacing);
+            
+            //Some weird aspect ratio fix
+            childPos += Offset;
             rtChildren[i].localPosition = childPos;
+            var size = rtChildren[i].sizeDelta;
+            size.x -= Mathf.Abs(Offset.x / 2f);
+            rtChildren[i].sizeDelta = size;
         }
     }
 }
