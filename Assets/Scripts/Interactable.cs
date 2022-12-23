@@ -24,7 +24,6 @@ public abstract class Interactable : MonoBehaviour
     /// <summary>
     /// Method to set if the interactable has been put on the grid or not.
     /// </summary>
-    /// 
     public void SetPlacementBool(bool value)
     {
         placedOnGrid = value;
@@ -35,10 +34,6 @@ public abstract class Interactable : MonoBehaviour
         hitCollider.enabled = value;
     }
     
-    public virtual void ChangeActions()
-    {
-        
-    }
     public void UpdateGridPartColors(bool placementComplete)
     {
         if (placementComplete)
@@ -73,10 +68,12 @@ public abstract class Interactable : MonoBehaviour
             
         }
     }
-    
-    public virtual void DoPathfinding(bool startFollow,Vector3 targetPos)
+    /// <summary>
+    /// Returns true if a path has been found.
+    /// </summary>
+    public virtual bool TryPathfinding(bool startFollow,Vector3 targetPos)
     {
-        
+        return false;
     }
     
     public virtual void ClearPath()
@@ -92,11 +89,6 @@ public abstract class Interactable : MonoBehaviour
     public virtual GameObject GetSpawnPointObj()
     {
         return null;
-    }
-
-    public virtual void ChangeSprite(Color color)
-    {
-        GetComponent<MeshRenderer>().material.color = color;
     }
     
     public virtual bool TryPlacement()

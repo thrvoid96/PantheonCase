@@ -10,8 +10,9 @@ public class Barracks : Building
     [SerializeField] private GameObject spawnPoint;
     [SerializeField] private LineRenderer lineRenderer;
 
-    private Vector3[] lineRendStartPoints;
+    private Vector3[] lineRendStartPoints, path;
     private Vector3 spawnPointStartPosition;
+    private bool successfullPathFound;
 
     public override bool TryPlacement()
     {
@@ -31,7 +32,8 @@ public class Barracks : Building
         base.TryChangeSpawnPoint();
         if (CustomGrid.Instance.NodeFromWorldPoint(spawnPoint.transform.position).walkable)
         {
-            //lineRendStartPoints = path
+            lineRendStartPoints = path;
+            spawnPointStartPosition = spawnPoint.transform.position;
             return true;
         }
 
@@ -52,17 +54,28 @@ public class Barracks : Building
         return spawnPoint;
     }
 
-    public override void DoPathfinding(bool startFollow, Vector3 targetPos)
+    public override bool TryPathfinding(bool startFollow, Vector3 targetPos)
     {
-        base.DoPathfinding(startFollow,targetPos);
+        base.TryPathfinding(startFollow,targetPos);
         PathRequestManager.RequestPath(transform.position,targetPos, OnPathFound);
+        return successfullPathFound;
     }
     
-    public void OnPathFound(Vector3[] newPath, bool pathSuccessful) {
-        if (pathSuccessful) {
-            
+    public void OnPathFound(Vector3[] newPath, bool pathSuccessful)
+    {
+        successfullPathFound = pathSuccessful;
+        if (pathSuccessful)
+        {
+            path = newPath;
             lineRenderer.positionCount = newPath.Length;
             lineRenderer.SetPositions(newPath);
+            lineRenderer.startColor = Color.green;
+            lineRenderer.endColor = Color.green;
+        }
+        else
+        {
+            lineRenderer.startColor = Color.red;
+            lineRenderer.endColor = Color.red;
         }
     }
 
@@ -101,7 +114,7 @@ public class Barracks : Building
                     {
                         soliderSpawnNode = startNode;
                         spawnPoint.transform.position = soliderSpawnNode.worldPosition;
-                        DoPathfinding(false,spawnPoint.transform.position);
+                        TryPathfinding(false,spawnPoint.transform.position);
                         return;
                     }
                 }
@@ -111,4 +124,5 @@ public class Barracks : Building
             nextNodes.Clear();
         }
     }
+
 }

@@ -12,7 +12,7 @@ namespace Actions
         Cancel,
         Placeholder,
         //<= Can put your new enums starting from here.
-        Follow,
+        GoTo,
         Place,
         ChangeSpawnPoint,
         SpawnSoldier,

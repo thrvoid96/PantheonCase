@@ -12,9 +12,9 @@ public class Unit : Interactable
     private bool successfullPathFound;
     private bool destinationReached;
 
-    public override void DoPathfinding(bool startFollow,Vector3 targetPos)
+    public override bool TryPathfinding(bool startFollow,Vector3 targetPos)
     {
-        base.DoPathfinding(startFollow,targetPos);
+        base.TryPathfinding(startFollow,targetPos);
         currentlyDoingAction = true;
         if (startFollow)
         {
@@ -25,6 +25,8 @@ public class Unit : Interactable
         {
             PathRequestManager.RequestPath(transform.position,targetPos, OnPathFound);
         }
+
+        return successfullPathFound;
     }
 
     public void FollowPath(Vector3[] newPath, bool pathSuccessful)
@@ -52,8 +54,14 @@ public class Unit : Interactable
         if (pathSuccessful) {
             path = newPath;
             targetIndex = 1;
-            
             SetLineRendererPoints();
+            lineRenderer.startColor = Color.green;
+            lineRenderer.endColor = Color.green;
+        }
+        else
+        {
+            lineRenderer.startColor = Color.red;
+            lineRenderer.endColor = Color.red;
         }
     }
 
@@ -89,12 +97,14 @@ public class Unit : Interactable
     private void ShiftLineRendererPoints()
     {
         int newPositionCount = lineRenderer.positionCount - 1;
+        //Debug.LogError(newPositionCount);
         Vector3[] newPositions = new Vector3[newPositionCount];
  
         for (int i = 0; i < newPositionCount; i++){
             newPositions[i] = lineRenderer.GetPosition(i + 1);
         }
- 
+
+        lineRenderer.positionCount = newPositionCount;
         lineRenderer.SetPositions(newPositions);
     }
     

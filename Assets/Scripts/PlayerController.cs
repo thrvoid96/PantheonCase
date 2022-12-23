@@ -12,20 +12,23 @@ public class PlayerController : Singleton<PlayerController>
     
     public void SelectNewInteractable(Interactable interactable)
     {
-        selectedInteractable = interactable;
-        selectedInteractable.CanBeInteracted(false);
-
-        RootController.Instance.EngageController(RootController.ControllerTypeEnum.Information);
-        RootController.Instance.SetupInfoPanel(selectedInteractable.getInteractableData);
-        RootController.Instance.SetupActionsPanel(selectedInteractable.getActions);
-
-
-        if (_coroutine != null)
+        if (selectedInteractable == null)
         {
-            StopCoroutine(nameof(WaitForUserInput));
-        }
+            selectedInteractable = interactable;
+            selectedInteractable.CanBeInteracted(false);
+
+            RootController.Instance.EngageController(RootController.ControllerTypeEnum.Information);
+            RootController.Instance.SetupInfoPanel(selectedInteractable.getInteractableData);
+            RootController.Instance.SetupActionsPanel(selectedInteractable.getActions);
+
+
+            if (_coroutine != null)
+            {
+                StopCoroutine(nameof(WaitForUserInput));
+            }
        
-        _coroutine = StartCoroutine(nameof(WaitForUserInput));
+            _coroutine = StartCoroutine(nameof(WaitForUserInput));
+        }
     }
 
     public void UnselectInteractable()

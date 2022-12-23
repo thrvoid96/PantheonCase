@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objName: Soldier
   description: "Ya\u015Fas\u0131n \u0131rk\u0131m\u0131z, \xE7ine bedel k\u0131rk\u0131m\u0131z"
-  sprite: {fileID: 21300000, guid: c887ed2a931c29040bc544cd8c546e9f, type: 3}
+  sprite: {fileID: 21300000, guid: 91defe892b3bec54a964f3987cb09b77, type: 3}

@@ -45,7 +45,7 @@ public abstract class Building : Interactable
         return returnValue;
     }
     
-    public override void ChangeActions()
+    private void ChangeActions()
     {
         actions = new List<BaseAction>(nextActions);
         nextActions.Clear();

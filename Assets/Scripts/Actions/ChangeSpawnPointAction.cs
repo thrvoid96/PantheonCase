@@ -54,7 +54,7 @@ namespace Actions
                     if (lastGrid != hoveringGrid)
                     {
                         spawnPointObj.transform.position = hoveringGrid.worldPosition;
-                        PlayerController.Instance.selectedInteractable.DoPathfinding(false,hit.point);
+                        PlayerController.Instance.selectedInteractable.TryPathfinding(false,hit.point);
                         lastGrid = hoveringGrid;
                     }
                    

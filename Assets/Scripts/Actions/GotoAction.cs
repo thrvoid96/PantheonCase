@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Actions
 {
-    public class FollowAction : BaseAction
+    public class GotoAction : BaseAction
     {
         private RaycastHit hit;
         private Coroutine _coroutine;
@@ -21,10 +21,13 @@ namespace Actions
         public override bool DoAction()
         {
             base.DoAction();
-            StopCoroutine(nameof(CheckForAvailablePath));
-            PlayerController.Instance.selectedInteractable.DoPathfinding(true,hit.point);
-            PlayerController.Instance.UnselectInteractable();
-            return true;
+            var pathViable = PlayerController.Instance.selectedInteractable.TryPathfinding(true,hit.point);
+            if (pathViable)
+            {
+                StopCoroutine(nameof(CheckForAvailablePath));
+                PlayerController.Instance.UnselectInteractable();
+            }
+            return pathViable;
         }
 
         public override void CancelAction()
@@ -40,7 +43,7 @@ namespace Actions
                 Ray ray = CameraMain.Instance.mainCam.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast (ray, out hit, Mathf.Infinity,LayerMask.GetMask("Grid"))) 
                 {
-                    PlayerController.Instance.selectedInteractable.DoPathfinding(false,hit.point); 
+                    PlayerController.Instance.selectedInteractable.TryPathfinding(false,hit.point); 
                 }   
              
                 yield return null;

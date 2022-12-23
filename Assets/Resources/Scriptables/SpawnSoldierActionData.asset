@@ -15,6 +15,6 @@ MonoBehaviour:
   actionType: 5
   objName: Spawn soldier
   description: Spawns soldier towards your spawn point
-  sprite: {fileID: 21300000, guid: 02800fb9cff14da47a04572790384d8b, type: 3}
+  sprite: {fileID: 21300000, guid: 66f900767ed92374ca3c5e466352bf44, type: 3}
   cooldown: 0
   cost: 0

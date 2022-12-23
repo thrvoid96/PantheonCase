@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fa0700ddbff07694f89644aee506619e, type: 3}
-  m_Name: FollowActionData
+  m_Name: GotoActionData
   m_EditorClassIdentifier: 
   actionType: 2
-  objName: Follow
+  objName: Go to
   description: Go to the designated position
-  sprite: {fileID: 21300000, guid: d98fbe17966d8ef449b25b99024bf36f, type: 3}
+  sprite: {fileID: 21300000, guid: 6e222a472c3b59b41824aebd67346bd7, type: 3}
   cooldown: 5
   cost: 0
