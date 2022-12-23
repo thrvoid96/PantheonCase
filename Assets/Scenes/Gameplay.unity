@@ -752,6 +752,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6424593590680671811, guid: 236d36e598ff35440ae8ab354ba8bcb0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TriggerEvent
+      objectReference: {fileID: 0}
     - target: {fileID: 6464755054368015649, guid: 236d36e598ff35440ae8ab354ba8bcb0, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

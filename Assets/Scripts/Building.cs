@@ -1,10 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Actions;
 using UnityEngine;
 
 public abstract class Building : Interactable
 {
+    [SerializeField] private List<BaseAction> nextActions;
+    
     /// <summary>
     /// Returns true if the placement was successfull.
     /// </summary>
@@ -30,11 +33,18 @@ public abstract class Building : Interactable
                 node.walkable = false;
             }
             
+            ChangeActions();
             returnValue = true;
         }
 
         SetPlacementBool(returnValue);
         CanBeInteracted(returnValue);
         return returnValue;
+    }
+    
+    public override void ChangeActions()
+    {
+        actions = new List<BaseAction>(nextActions);
+        nextActions.Clear();
     }
 }

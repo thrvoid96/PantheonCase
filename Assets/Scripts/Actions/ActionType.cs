@@ -15,7 +15,8 @@ namespace Actions
         Follow,
         Place,
         ChangeSpawnPoint,
-        SpawnSoldier
+        SpawnSoldier,
+        ProducePower
         //<= Or here.
     }
 }

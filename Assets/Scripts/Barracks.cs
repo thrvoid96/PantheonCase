@@ -8,7 +8,6 @@ public class Barracks : Building
 {
     private Node soliderSpawnNode;
     [SerializeField] private GameObject spawnPoint;
-    [SerializeField] private List<BaseAction> nextActions;
     [SerializeField] private LineRenderer lineRenderer;
 
     private Vector3[] lineRendStartPoints;
@@ -22,7 +21,6 @@ public class Barracks : Building
         {
             lineRenderer.useWorldSpace = true;
             FindClosestEmptyNode();
-            ChangeActions();
         }
         
         return finalResult;
@@ -33,6 +31,7 @@ public class Barracks : Building
         base.TryChangeSpawnPoint();
         if (CustomGrid.Instance.NodeFromWorldPoint(spawnPoint.transform.position).walkable)
         {
+            //lineRendStartPoints = path
             return true;
         }
 
@@ -45,13 +44,7 @@ public class Barracks : Building
         lineRenderer.SetPositions(lineRendStartPoints);
         spawnPoint.transform.position = spawnPointStartPosition;
     }
-
-    public override void ChangeActions()
-    {
-        actions = new List<BaseAction>(nextActions);
-        nextActions.Clear();
-    }
-
+    
     public override GameObject GetSpawnPointObj()
     {
         base.GetSpawnPointObj();
@@ -68,15 +61,8 @@ public class Barracks : Building
     public void OnPathFound(Vector3[] newPath, bool pathSuccessful) {
         if (pathSuccessful) {
             
-            Vector3[] newarr = new Vector3[newPath.Length + 1];
-            for (int i = 1; i < newarr.Length; i++)
-            {
-                newarr[i] = newPath[i - 1];
-            }
-
-            newarr[0] = transform.position;
-            lineRenderer.positionCount = newarr.Length;
-            lineRenderer.SetPositions(newarr);
+            lineRenderer.positionCount = newPath.Length;
+            lineRenderer.SetPositions(newPath);
         }
     }
 

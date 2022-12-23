@@ -8,8 +8,11 @@ public class ProduceBuilding : MonoBehaviour
     public string buildingName;
     public void CreateBuilding()
     {
-        var spawnedObject = ObjectPool.Instance.SpawnFromPool(buildingName);
-        var interactable = spawnedObject.GetComponent<Interactable>();
-        PlayerController.Instance.SelectNewInteractable(interactable);
+        if (PlayerController.Instance.selectedInteractable == null)
+        {
+            var spawnedObject = ObjectPool.Instance.SpawnFromPool(buildingName);
+            var interactable = spawnedObject.GetComponent<Interactable>();
+            PlayerController.Instance.SelectNewInteractable(interactable);
+        }
     }
 }

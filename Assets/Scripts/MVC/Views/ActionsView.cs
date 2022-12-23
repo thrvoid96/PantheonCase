@@ -48,8 +48,9 @@ namespace MVC.Views
             
             availableActions.Add(cancelActionView);
             cancelAction.AttachToView(cancelActionView);
-            ChangeAllActionsVisibility(false);
+            cancelAction.RegisterToEvents(delegate { ChangeSelectedAction(cancelAction); });
             PlayerController.Instance.playerInputGiven.AddListener(TriggerCurrentAction);
+            ChangeAllActionsVisibility(false);
         }
         
         
@@ -70,16 +71,16 @@ namespace MVC.Views
             
             for (int i = 0; i < actions.Count; i++)
             {
-                actions[i].AttachToView(availableActions[i]);
-                actions[i].RegisterToEvents(delegate { ChangeSelectedAction(actions[i]); });
-                    
-                availableActions[i].transform.SetSiblingIndex(i);
+                var action = actions[i];
                 availableActions[i].gameObject.SetActive(true);
+                action.AttachToView(availableActions[i]);
+                action.RegisterToEvents(delegate { ChangeSelectedAction(action); });
             }
             
             cancelActionView.transform.SetSiblingIndex(actions.Count);
             cancelAction.gameObject.SetActive(true);
-
+            selectedAction = null;
+            
             ChangeSelectedAction(actions[0]);
             
             //LayoutRebuilder.ForceRebuildLayoutImmediate(scrollRect.content);
@@ -95,11 +96,14 @@ namespace MVC.Views
             selectedAction = action;
             selectedAction.StartAction();
             
-            if (selectedAction.GetActionType() != ActionType.Cancel)
+            if (selectedAction.GetActionType() == ActionType.Cancel)
             {
-                selectedAction.getActionView.GetButton().Select();
+                ChangeAllActionsVisibility(false);
+                selectedAction = null;
+                return;
             }
             
+            selectedAction.getActionView.GetButton().Select();
             descriptionLabel.text = selectedAction.getActionData.description;
         }
         

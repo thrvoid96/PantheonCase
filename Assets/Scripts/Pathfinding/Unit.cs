@@ -51,14 +51,14 @@ public class Unit : Interactable
         successfullPathFound = pathSuccessful;
         if (pathSuccessful) {
             path = newPath;
-            targetIndex = 0;
+            targetIndex = 1;
             
             SetLineRendererPoints();
         }
     }
 
     IEnumerator StartFollow() {
-        Vector3 currentWaypoint = path[0];
+        Vector3 currentWaypoint = path[1];
         while (true) {
             if (transform.position == currentWaypoint) {
                 targetIndex ++;
@@ -82,15 +82,8 @@ public class Unit : Interactable
 
     private void SetLineRendererPoints()
     {
-        Vector3[] newarr = new Vector3[path.Length + 1];
-        for (int i = 1; i < newarr.Length; i++)
-        {
-            newarr[i] = path[i - 1];
-        }
-            
-        newarr[0] = transform.position;
-        lineRenderer.positionCount = newarr.Length;
-        lineRenderer.SetPositions(newarr);
+        lineRenderer.positionCount = path.Length;
+        lineRenderer.SetPositions(path);
     }
 
     private void ShiftLineRendererPoints()
