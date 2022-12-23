@@ -11,6 +11,7 @@ namespace Interactables
         int targetIndex;
         private bool successfullPathFound;
         private bool destinationReached;
+        private bool firstSpawn;
 
         public override bool TryPathfinding(bool startFollow,Vector3 targetPos)
         {
@@ -35,6 +36,15 @@ namespace Interactables
             if (pathSuccessful) {
                 path = newPath;
                 targetIndex = 1;
+
+                if (!firstSpawn)
+                {
+                    CustomGrid.Instance.NodeFromWorldPoint(transform.position).walkable = true;
+                }
+                
+                CustomGrid.Instance.NodeFromWorldPoint(path[path.Length - 1]).walkable = false;
+                firstSpawn = false;
+                
                 SetLineRendererPoints();
             
                 StopCoroutine(nameof(StartFollow));
@@ -113,5 +123,10 @@ namespace Interactables
             path = null;
         }
 
+        public override void onObjectSpawn()
+        {
+            base.onObjectSpawn();
+            firstSpawn = true;
+        }
     }
 }
