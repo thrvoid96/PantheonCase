@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UISpAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 512
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 3
+      m_CompressionQuality: 100
+      m_CrunchedCompression: 1
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 2
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 66a4983c742e4c440947cb7ceab67aa7, type: 3}
+    - {fileID: 2800000, guid: fac870a17a2e598489c7b132ea6d78be, type: 3}
+    - {fileID: 2800000, guid: 66f900767ed92374ca3c5e466352bf44, type: 3}
+    - {fileID: 2800000, guid: 67437d2d07c9278499be71be74165a68, type: 3}
+    - {fileID: 2800000, guid: 6e222a472c3b59b41824aebd67346bd7, type: 3}
+    - {fileID: 2800000, guid: c50a0cf30ba3e7f4cb153704f57a6176, type: 3}
+    - {fileID: 2800000, guid: e45dbf1fecd2d0241b37227de6c7ff58, type: 3}
+    - {fileID: 2800000, guid: 91defe892b3bec54a964f3987cb09b77, type: 3}
+    - {fileID: 2800000, guid: d6bd60f6893e4604088f78312de94456, type: 3}
+    - {fileID: 2800000, guid: 2348ce12f1d641d4fa8cec5cca989aa1, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: fac870a17a2e598489c7b132ea6d78be, type: 3}
+  - {fileID: 21300000, guid: 2348ce12f1d641d4fa8cec5cca989aa1, type: 3}
+  - {fileID: 21300000, guid: c50a0cf30ba3e7f4cb153704f57a6176, type: 3}
+  - {fileID: 21300000, guid: 66f900767ed92374ca3c5e466352bf44, type: 3}
+  - {fileID: 21300000, guid: d6bd60f6893e4604088f78312de94456, type: 3}
+  - {fileID: 21300000, guid: 6e222a472c3b59b41824aebd67346bd7, type: 3}
+  - {fileID: 21300000, guid: 91defe892b3bec54a964f3987cb09b77, type: 3}
+  - {fileID: 21300000, guid: 66a4983c742e4c440947cb7ceab67aa7, type: 3}
+  - {fileID: 21300000, guid: 67437d2d07c9278499be71be74165a68, type: 3}
+  - {fileID: 21300000, guid: e45dbf1fecd2d0241b37227de6c7ff58, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - barracks
+  - gridSprite
+  - place
+  - add
+  - fieldSprite
+  - goto
+  - Soldier
+  - cancel
+  - Flag
+  - power
+  m_RenderDataMap: {}
+  m_Tag: UISpAtlas
+  m_IsVariant: 0
