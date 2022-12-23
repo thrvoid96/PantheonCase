@@ -29,7 +29,6 @@ namespace Actions
             {
                 StopCoroutine(nameof(WaitForPlaceInput));
                 PlayerController.Instance.selectedInteractable.UpdateGridPartColors(true);
-                PlayerController.Instance.UnselectInteractable();
             }
             return actionComplete;
         }

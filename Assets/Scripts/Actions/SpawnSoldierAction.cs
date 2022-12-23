@@ -20,7 +20,6 @@ namespace Actions
                 Quaternion.identity, interactableTrans).GetComponent<Interactable>();
             
             newSoldier.DoPathfinding(true,spawnPoint.transform.position);
-            PlayerController.Instance.UnselectInteractable();
             return true;
         }
 

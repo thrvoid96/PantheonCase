@@ -88,6 +88,11 @@ namespace MVC.Views
 
         private void ChangeSelectedAction(BaseAction action)
         {
+            for (int i = 0; i < availableActions.Count; i++)
+            {
+                availableActions[i].ClearButtonHighlight();
+            }
+            
             if (selectedAction != null)
             {
                 selectedAction.CancelAction();
@@ -103,7 +108,7 @@ namespace MVC.Views
                 return;
             }
             
-            selectedAction.getActionView.GetButton().Select();
+            selectedAction.getActionView.HighlightButton();
             descriptionLabel.text = selectedAction.getActionData.description;
         }
         

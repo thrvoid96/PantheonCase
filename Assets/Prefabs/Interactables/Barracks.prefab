@@ -222,10 +222,10 @@ MonoBehaviour:
   actions:
   - {fileID: 6883420056315052468}
   hitCollider: {fileID: 7649157894826709884}
-  spawnPoint: {fileID: 225173909412318839}
   nextActions:
-  - {fileID: 1309219042095633536}
   - {fileID: 8687608545368901737}
+  - {fileID: 1309219042095633536}
+  spawnPoint: {fileID: 225173909412318839}
   lineRenderer: {fileID: 6227550072333399262}
 --- !u!61 &7649157894826709884
 BoxCollider2D:
@@ -771,8 +771,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 2886910641397376762}
   - {fileID: 5204308194637978160}
+  - {fileID: 2886910641397376762}
   - {fileID: 6451449504939402636}
   m_Father: {fileID: 1532294830210803404}
   m_RootOrder: 4
@@ -790,7 +790,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1240106498218490989, guid: 99b0197c25e657a43a0c35a4e0a59aaf, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1240106498218490989, guid: 99b0197c25e657a43a0c35a4e0a59aaf, type: 3}
       propertyPath: m_LocalPosition.x
@@ -932,7 +932,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1880407849639155864, guid: 3370b4c6dcffb914aaf9b8f39b8fcbab, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1880407849639155864, guid: 3370b4c6dcffb914aaf9b8f39b8fcbab, type: 3}
       propertyPath: m_LocalPosition.x

@@ -45,8 +45,17 @@ public class ActionView : MonoBehaviour
         buttonClickedEvent?.Invoke();
     }
 
-    public Button GetButton()
+    public void HighlightButton()
     {
-        return actionButton;
+        var actionButtonColors = actionButton.colors;
+        actionButtonColors.normalColor = Color.yellow;
+        actionButton.colors = actionButtonColors;
+    }
+    
+    public void ClearButtonHighlight()
+    {
+        var actionButtonColors = actionButton.colors;
+        actionButtonColors.normalColor = Color.white;
+        actionButton.colors = actionButtonColors;
     }
 }

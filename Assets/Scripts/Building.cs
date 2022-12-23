@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Actions;
+using MVC.Controllers;
 using UnityEngine;
 
 public abstract class Building : Interactable
@@ -48,5 +49,7 @@ public abstract class Building : Interactable
     {
         actions = new List<BaseAction>(nextActions);
         nextActions.Clear();
+        RootController.Instance.SetupInfoPanel(getInteractableData);
+        RootController.Instance.SetupActionsPanel(actions);
     }
 }

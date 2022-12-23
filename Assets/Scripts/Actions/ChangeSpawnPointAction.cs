@@ -28,7 +28,6 @@ namespace Actions
             if (actionComplete)
             {
                 StopCoroutine(nameof(CheckForSpawnPoint));
-                PlayerController.Instance.UnselectInteractable();
             }
 
             return actionComplete;

@@ -14,7 +14,7 @@ public class PlayerController : Singleton<PlayerController>
     {
         selectedInteractable = interactable;
         selectedInteractable.CanBeInteracted(false);
-        //selectedInteractable.ChangeSprite(Color.green);
+
         RootController.Instance.EngageController(RootController.ControllerTypeEnum.Information);
         RootController.Instance.SetupInfoPanel(selectedInteractable.getInteractableData);
         RootController.Instance.SetupActionsPanel(selectedInteractable.getActions);
