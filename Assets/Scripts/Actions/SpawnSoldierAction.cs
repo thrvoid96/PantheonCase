@@ -1,4 +1,5 @@
 using System.Collections;
+using Interactables;
 using UnityEngine;
 
 namespace Actions

@@ -4,19 +4,18 @@ namespace Actions
 {
     /// <summary>
     /// This is used for actions initialization in ActionsView.
-    /// Do not put enums over "Cancel" or "Placeholder"
+    /// Put new enums at the bottom for not distrupting other ones.
     /// </summary>
     [Serializable]
     public enum ActionType
     {
         Cancel,
         Placeholder,
-        //<= Can put your new enums starting from here.
         GoTo,
         Place,
         ChangeSpawnPoint,
         SpawnSoldier,
         ProducePower
-        //<= Or here.
+        //<= Here.
     }
 }

@@ -19,15 +19,11 @@ public class ActionsController : SubController<ActionsView>
     public override void EngageController()
     {
         base.EngageController();
-        
-        // Attaching UI events.
-        //view.OnActionClicked += ChangeSelectedAction;
     }
 
     public override void DisengageController()
     {
         base.DisengageController();
-        //view.OnActionClicked -= ChangeSelectedAction;
     }
 
     private void InitialSetup()
