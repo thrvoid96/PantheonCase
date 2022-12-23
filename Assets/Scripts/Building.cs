@@ -6,6 +6,8 @@ using UnityEngine;
 
 public abstract class Building : Interactable
 {
+    //Bu şimdilik burada. Aslında bütün interactable'lar action değiştirebilir ama şuan sadece
+    // buildinglere lazım.
     [SerializeField] private List<BaseAction> nextActions;
     
     /// <summary>
