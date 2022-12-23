@@ -119,6 +119,7 @@ public class CustomLayoutGroup : MonoBehaviour
         height = rectTransform.rect.height - (2 * verticalMargin);
 
         childWidth = rtChildren[0].rect.width;
+        
         childHeight = rtChildren[0].rect.height;
 
         horizontal = !vertical;

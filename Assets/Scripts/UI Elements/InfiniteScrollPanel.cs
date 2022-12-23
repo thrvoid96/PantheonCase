@@ -123,17 +123,21 @@ public class InfiniteScrollPanel : MonoBehaviour, IBeginDragHandler, IDragHandle
 
         int endItemIndex = positiveDrag ? 0 : scrollRect.content.childCount - 1;
         Transform endItem = scrollRect.content.GetChild(endItemIndex);
+        Transform secondEndItem = null;
         Vector2 newPos = endItem.position;
 
         if (positiveDrag)
         {
-            newPos.y = endItem.position.y - customLayoutContent.ChildHeight * 1.5f + customLayoutContent.ItemSpacing;
+            secondEndItem = scrollRect.content.GetChild(1);
+            
         }
         else
         {
-            newPos.y = endItem.position.y + customLayoutContent.ChildHeight * 1.5f - customLayoutContent.ItemSpacing;
+            secondEndItem = scrollRect.content.GetChild(endItemIndex-1);
         }
-
+        var posDiff = endItem.position.y - secondEndItem.position.y;
+        newPos.y = endItem.position.y + posDiff;
+        
         currItem.position = newPos;
         currItem.SetSiblingIndex(endItemIndex);
     }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Actions;
 using UnityEngine;
 
@@ -103,27 +104,41 @@ public class Barracks : Building
     {
         List<Node> nodesToTest = new List<Node>();
         List<Node> nextNodes = new List<Node>();
+        List<Node> testedNodes = new List<Node>();
         nodesToTest.Add(CustomGrid.Instance.NodeFromWorldPoint(positionToStartTest));
         while (soliderSpawnNode == null)
         {
             foreach (Node node in nodesToTest)
             {
-                nextNodes = CustomGrid.Instance.GetNeighbours(node);
-                foreach (Node startNode in nextNodes)
+                if(testedNodes.Contains(node))
                 {
-                    if (startNode.walkable)
-                    {
-                        soliderSpawnNode = startNode;
-                        spawnPoint.transform.position = soliderSpawnNode.worldPosition;
-                        TryPathfinding(false,spawnPoint.transform.position);
-                        return;
-                    }
+                    continue;
+                }
+                
+                if (node.walkable)
+                {
+                    SetupForNode(node);
+                    return;
+                }
+
+                nextNodes = CustomGrid.Instance.GetNeighbours(node);
+
+                if (!testedNodes.Contains(node))
+                {
+                    testedNodes.Add(node);
                 }
             }
 
             nodesToTest = new List<Node>(nextNodes);
             nextNodes.Clear();
         }
+    }
+
+    private void SetupForNode(Node node)
+    {
+        soliderSpawnNode = node;
+        spawnPoint.transform.position = soliderSpawnNode.worldPosition;
+        TryPathfinding(false,spawnPoint.transform.position);
     }
 
 }
