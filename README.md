@@ -2,6 +2,7 @@
 Ufak notlar:
 
 -Production menüden herhangi bir objeye sol tıkladığınızda info menü açılıyor
+
 -İnfo menü açık olduğu sürece başka objelerle interaksiyona geçemezsiniz (Kapamak için infoUI üstündeki cancel butonunu kullanın)
 -İnfo menü üstünde her zaman ilk aksiyon seçili olarak geliyor.(Sağ grid üstünde sağ tıklayarak aksiyonu gerçekleştiriyorsunuz.)
 -Spawn noktalarının üstüne bina atarak spawnı bloklayaibliyorsunuz
