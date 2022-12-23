@@ -7,17 +7,13 @@ namespace Actions
     public class ChangeSpawnPointAction : BaseAction
     {
         private RaycastHit hit;
-        private Coroutine _coroutine;
         private GameObject spawnPointObj;
         public override void StartAction()
         {
             base.StartAction();
             
-            if (_coroutine != null)
-            {
-                StopCoroutine(nameof(CheckForSpawnPoint));
-            }
-            _coroutine = StartCoroutine(nameof(CheckForSpawnPoint));
+            StopCoroutine(nameof(CheckForSpawnPoint));
+            StartCoroutine(nameof(CheckForSpawnPoint));
         }
 
         public override bool DoAction()

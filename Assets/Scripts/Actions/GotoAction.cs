@@ -6,16 +6,12 @@ namespace Actions
     public class GotoAction : BaseAction
     {
         private RaycastHit hit;
-        private Coroutine _coroutine;
         public override void StartAction()
         {
             base.StartAction();
             
-            if (_coroutine != null)
-            {
-                StopCoroutine(nameof(CheckForAvailablePath));
-            }
-            _coroutine = StartCoroutine(nameof(CheckForAvailablePath));
+            StopCoroutine(nameof(CheckForAvailablePath));
+            StartCoroutine(nameof(CheckForAvailablePath));
         }
 
         public override bool DoAction()

@@ -5,7 +5,6 @@ using UnityEngine.Events;
 
 public class PlayerController : Singleton<PlayerController>
 {
-    private Coroutine _coroutine;
     public Interactable selectedInteractable { get; private set; }
 
     public UnityEvent playerInputGiven;
@@ -22,12 +21,8 @@ public class PlayerController : Singleton<PlayerController>
             RootController.Instance.SetupActionsPanel(selectedInteractable.getActions);
 
 
-            if (_coroutine != null)
-            {
-                StopCoroutine(nameof(WaitForUserInput));
-            }
-       
-            _coroutine = StartCoroutine(nameof(WaitForUserInput));
+            StopCoroutine(nameof(WaitForUserInput));
+            StartCoroutine(nameof(WaitForUserInput));
         }
     }
 

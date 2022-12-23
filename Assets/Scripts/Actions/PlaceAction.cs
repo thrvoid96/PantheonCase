@@ -7,17 +7,13 @@ namespace Actions
     public class PlaceAction : BaseAction
     {
         private RaycastHit hit;
-        private Coroutine _coroutine;
-        
+
         public override void StartAction()
         {
             base.StartAction();
             
-            if (_coroutine != null)
-            {
-                StopCoroutine(nameof(WaitForPlaceInput));
-            }
-            _coroutine = StartCoroutine(nameof(WaitForPlaceInput));
+            StopCoroutine(nameof(WaitForPlaceInput));
+            StartCoroutine(nameof(WaitForPlaceInput));
         }
 
         public override bool DoAction()

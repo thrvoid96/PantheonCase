@@ -20,6 +20,7 @@ public class Barracks : Building
 
         if (finalResult)
         {
+            lineRenderer.positionCount = 0;
             lineRenderer.useWorldSpace = true;
             FindClosestEmptyNode();
         }
