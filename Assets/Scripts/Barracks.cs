@@ -69,8 +69,8 @@ public class Barracks : Building
             path = newPath;
             lineRenderer.positionCount = newPath.Length;
             lineRenderer.SetPositions(newPath);
-            lineRenderer.startColor = Color.green;
-            lineRenderer.endColor = Color.green;
+            lineRenderer.startColor = Color.yellow;
+            lineRenderer.endColor = Color.yellow;
         }
         else
         {
