@@ -1,5 +1,7 @@
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 /*
 USAGE
 [VectorRange(minX, maxX, minY, maxY, clamped)]
@@ -18,6 +20,7 @@ public class VectorRangeAttribute : PropertyAttribute {
     }
 }
 
+#if UNITY_EDITOR
 [CustomPropertyDrawer(typeof(VectorRangeAttribute))]
 public class VectorRangeAttributeDrawer : PropertyDrawer
 {
@@ -67,3 +70,4 @@ public class VectorRangeAttributeDrawer : PropertyDrawer
         return vector.x >= rangeAttribute.fMinX && vector.x <= rangeAttribute.fMaxX && vector.y >= rangeAttribute.fMinY && vector.y <= rangeAttribute.fMaxY;
     }
 }
+#endif
