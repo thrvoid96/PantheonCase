@@ -12,6 +12,8 @@ Ufak notlar:
 (Bayrağın üstüne bina yapılmayacak şekilde olunca askerler sıkışıp kalıyordu, o yüzden sadece asker spawnlanmasını engelliyorum. 
 Yeni bir spawn noktası seçip oradan devam edebilirsiniz.)
 
+-Powerplant actionu var ama içi boş
+
 -Draw call 20-25 arası ama 6 call da skybox'tan alıyor.(Sprite atlas/lighting yerine başka optimizasyon yapmadım)
 
 -Pub and sub yerine eventlere add/remove listener yaptım
